@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>注册</title>
+	<link rel="stylesheet" type="text/css" href="../easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../easyui/themes/icon.css">
+	<script type="text/javascript" src="../easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="../easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$.extend($.fn.validatebox.defaults.rules, {    
+			    equals: {    
+			        validator: function(value,param){    
+			            return value == $(param[0]).val();    
+			        },    
+			        message: '密码不一致.'
+			    }    
+			}); 
+			
+			$('#regDia').dialog({
+				buttons:[{
+					text:'提交',
+					handler:function(){
+						$('#regFrm').form('submit');
+					}
+				},{
+					text:'重置',
+					handler:function(){
+						$('#regFrm').form('reset');
+					}
+				}]
+			});
+			$('#regFrm').form({
+				url:'/cms/regUser',
+				onSubmit: function(){   
+			        if(!$('#regFrm').form('validate')){
+			        	return false;
+			        }
+			    },   
+			    success:function(data){
+			    	var rd = JSON.parse(data);
+			    	$.messager.alert("注册提示", rd.msg, "info");
+			    	$('#regFrm').form('reset');
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+	<div id="regDia" title="用户注册" class="easyui-dialog"
+		style="width: 250px; height: 220px;" closable="false" modal="true">
+		<form id="regFrm" method="post">
+			<table>
+				<tr>
+					<td>用户名</td>
+					<td>
+						<input name="uname" class="easyui-validatebox" data-options="required:true">
+					</td>
+				</tr>
+				<tr>
+					<td>密码</td>
+					<td>
+						<input id="pwd" name="upwd" type="password" class="easyui-validatebox" data-options="required:true">
+					</td>
+				</tr>
+				<tr>
+					<td>确认密码</td>
+					<td>
+						<input name="rpwd" type="password" class="easyui-validatebox" required="required" validType="equals['#pwd']">
+					</td>
+				</tr>
+				<tr>
+					<td>手机号</td>
+					<td>
+						<input name="cellphone" class="easyui-validatebox" data-options="required:true">
+					</td>
+				</tr>
+				<tr>
+					<td>地址</td>
+					<td>
+						<input name="address" class="easyui-validatebox" data-options="required:true">
+					</td>
+				</tr>
+			</table>
+		</form>	
+	</div>
+</body>
+</html>

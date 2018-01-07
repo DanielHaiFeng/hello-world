@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xa.dt.dao.UserDao">
+	<resultMap id="BaseResultMap" type="com.xa.dt.beans.UserBean">
+		<id column="uid" jdbcType="INTEGER" property="uid" />
+		<result column="uname" jdbcType="VARCHAR" property="uname" />
+		<result column="upwd" jdbcType="VARCHAR" property="upwd" />
+		<result column="cellphone" jdbcType="VARCHAR" property="cellphone" />
+		<result column="address" jdbcType="VARCHAR" property="address" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		uid, uname, upwd, cellphone, address
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user_table
+		where uid = #{uid,jdbcType=INTEGER}
+	</select>
+	<select id="getUsers" parameterType="com.xa.dt.beans.UserBean"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from (select * from user_table where 1 = 1
+		<if test="uname != null">
+			and uname like "%"#{uname,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="cellphone != null">
+			and cellphone like "%"#{cellphone,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="address != null">
+			and address like "%"#{address,jdbcType=VARCHAR}"%"
+		</if>
+		) ut limit #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+	<select id="getUserCount" parameterType="com.xa.dt.beans.UserBean" resultType="java.lang.Integer">
+		select count(*) tnum
+		 from user_table where 1 = 1
+		<if test="uname != null">
+			and uname like "%"#{uname,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="cellphone != null">
+			and cellphone like "%"#{cellphone,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="address != null">
+			and address like "%"#{address,jdbcType=VARCHAR}"%"
+		</if>
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from user_table
+		where uid = #{uid,jdbcType=INTEGER}
+	</delete>
+	
+	<delete id="deleteByIds" parameterType="list">
+		delete from user_table
+		where uid in
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<select id="isUserExist" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*) tnum
+		 from user_table where uname = #{uid,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="isLogin" resultType="java.lang.Integer">
+		select count(*) tnum
+		 from user_table where uname = #{0} and upwd = #{1}
+	</select>
+	
+	<select id="isUserExistForEdit" resultType="java.lang.Integer">
+		select count(*) tnum
+		 from user_table where uname = #{0} and uid != #{1}
+	</select>
+	
+	<insert id="insert" parameterType="com.xa.dt.beans.UserBean"
+		useGeneratedKeys="true" keyProperty="uid">
+		insert into user_table (uid, uname, upwd,
+		cellphone, address)
+		values (#{uid,jdbcType=INTEGER}, #{uname,jdbcType=VARCHAR},
+		#{upwd,jdbcType=VARCHAR},
+		#{cellphone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.xa.dt.beans.UserBean">
+		insert into user_table
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uid != null">
+				uid,
+			</if>
+			<if test="uname != null">
+				uname,
+			</if>
+			<if test="upwd != null">
+				upwd,
+			</if>
+			<if test="cellphone != null">
+				cellphone,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uid != null">
+				#{uid,jdbcType=INTEGER},
+			</if>
+			<if test="uname != null">
+				#{uname,jdbcType=VARCHAR},
+			</if>
+			<if test="upwd != null">
+				#{upwd,jdbcType=VARCHAR},
+			</if>
+			<if test="cellphone != null">
+				#{cellphone,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.xa.dt.beans.UserBean">
+		update user_table
+		<set>
+			<if test="uname != null">
+				uname = #{uname,jdbcType=VARCHAR},
+			</if>
+			<if test="upwd != null">
+				upwd = #{upwd,jdbcType=VARCHAR},
+			</if>
+			<if test="cellphone != null">
+				cellphone = #{cellphone,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where uid = #{uid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.xa.dt.beans.UserBean">
+		update user_table
+		set uname = #{uname,jdbcType=VARCHAR},
+		upwd = #{upwd,jdbcType=VARCHAR},
+		cellphone = #{cellphone,jdbcType=VARCHAR},
+		address = #{address,jdbcType=VARCHAR}
+		where uid = #{uid,jdbcType=INTEGER}
+	</update>
+</mapper>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>CMS系统</title>
+	<link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/default.css">
+	<script type="text/javascript" src="easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="js/init.js"></script>
+</head>
+<body class="easyui-layout">
+	<div data-options="region:'north',border:false" style="height:40px;background:#B3DFDA;padding:10px">
+		<div style="display: inline;float: left;">CMS管理系统</div>
+		<div style="display: inline;float: right;">
+			欢迎&nbsp;<span class="link-red" id="uname">admin</span>
+			&nbsp;<span class="link-red" id="udpw">改密</span>
+			&nbsp;<span class="link-red" id="qt">退出</span>
+		</div>
+	</div>
+	<div data-options="region:'west',title:'导航'" style="width:150px;padding:0px;">
+		<div id="ngm" class="easyui-accordion" fit="true" border="false">
+		</div>
+	</div>
+	<div data-options="region:'center'" style="overflow-y:hidden;">
+		<div id="tabs" class="easyui-tabs"  fit="true" border="false">
+			<div title="欢迎使用" style="padding:20px;overflow:hidden;" >
+			</div>
+		</div>
+	</div>
+	<div data-options="region:'south'" style="height:40px;background:#A9FACD;padding:10px;text-align: center;">
+		@Copyright Daniel.Dang
+	</div>
+	
+	<!--修改密码窗口-->
+	<div id="udpww" class="easyui-window" title="修改密码" collapsible="false"
+		minimizable="false" maximizable="false" closed="true" modal="true"
+		resizable="false" style="width: 320px; height: 160px; padding: 5px; background: #fafafa;">
+		<div class="easyui-layout" fit="true">
+			<div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc;">
+				<table cellpadding=3>
+					<tr>
+						<td>新密码：</td>
+						<td><input id="txtNewPass" type="Password"/></td>
+					</tr>
+					<tr>
+						<td>确认密码：</td>
+						<td><input id="txtRePass" type="Password"/></td>
+					</tr>
+				</table>
+			</div>
+			<div region="south" border="false" style="text-align: right; height: 30px; line-height: 30px;">
+				<a id="btnEp" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">确定</a>
+				<a id="btnCancel" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">取消</a>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

@@ -7,4 +7,4 @@ I'm a new joiner of GitHub system.This file is first one I Have edit in this sys
 
 welcome to attach more useful stuff to improve our technical skills.
 
-thank a lot.
+thanks a lot.

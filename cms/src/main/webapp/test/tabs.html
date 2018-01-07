@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html style="height: 98%">
+<head>
+<meta charset="UTF-8">
+<title>Tabs</title>
+	<link rel="stylesheet" type="text/css" href="../easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../easyui/themes/icon.css">
+	<script type="text/javascript" src="../easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="../easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('#tt').tabs({
+			    border:true,
+			    justified:true,
+			    onSelect:function(title){    
+			        alert(title+' is selected');    
+			    }
+			});
+			$('#tt').tabs('add',{    
+			    title:'tab1',    
+			    content:'Tab Body1',    
+			    closable:true,
+			    selected: false,
+			    tools:[{
+			        iconCls:'icon-mini-refresh',    
+			        handler:function(){
+			            alert('refresh');    
+			        }    
+			    }]    
+			}); 
+			$('#tt').tabs('add',{    
+			    title:'tab2',    
+			    content:'Tab Body2',    
+			    closable:true,
+			    selected: false,
+			    tools:[{
+			        iconCls:'icon-mini-refresh',    
+			        handler:function(){
+			            alert('refresh');
+			        }    
+			    }]    
+			});
+			var pp = $('#tt').tabs('getSelected');
+			var tab = pp.panel('options').tab;
+		});
+	</script>
+</head>
+<body style="height: 100%">
+	<div id="tt" class="easyui-tabs"  fit="true" border="false" style="height: 100%;width: 100%;">
+		<div title="欢迎使用" style="padding:20px;overflow:hidden;" >
+		</div>
+	</div>
+</body>
+</html>
