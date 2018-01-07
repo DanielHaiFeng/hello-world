@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>登录</title>
+	<link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
+	<script type="text/javascript" src="easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript">
+	var logRegDialog;
+	$(function(){
+		if(window.localStorage.getItem('loginUser')){
+			window.location.href='welcome.html';
+		}else{
+			logRegDialog = $('#logReg').dialog({
+				closable:false,
+				modal:true,
+				buttons:[{
+						text:'登录',
+						handler:function(){
+							$('#logRegFrm').form('submit');
+						}
+					},{
+						text:'重置',
+						handler:function(){
+							$('#logRegFrm').form('reset');
+						}
+				}]
+			});
+			$('#logRegFrm').form({
+				url:'/cms/login',
+			    onSubmit: function(){   
+			        if(!$('#logRegFrm').form('validate')){
+			        	return false;
+			        }
+			    },   
+			    success:function(data){
+			    	var rd = JSON.parse(data);
+					if (rd.result) {
+						window.localStorage.setItem('loginUser',$("[name='uname']").val());
+						window.location.href = "welcome.html";
+					} else {
+						$.messager.alert("登录提示", rd.msg, "warning");
+						$('#logRegFrm').form('reset');
+					}
+				}
+			});
+			logRegDialog.dialog('open');
+			$('#logReg input').on('keyup',function(event){
+				if(event.keyCode == 13){
+					$('#logRegFrm').form('submit');
+				}
+			})
+		}
+	});
+	</script>
+</head>
+<body>
+	<div id="logReg" title="用户登录" class="easyui-dialog"
+		style="width: 220px; height: 130px;" closed="true">
+		<form id="logRegFrm" method="post">
+			<table>
+				<tr>
+					<td>用户名</td>
+					<td><input name="uname" class="easyui-validatebox" data-options="required:true"/></td>
+				</tr>
+				<tr>
+					<td>密码</td>
+					<td><input name="upwd" type="password" class="easyui-validatebox" data-options="required:true"/></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+</html>
