@@ -18,6 +18,20 @@
 			<div id="utGrid"></div>
 		</div>
 	</div>
+	<div id="userToolBar">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="addUser()">添加</a>
+		<span class="datagrid-btn-separator" style="vertical-align: middle;display:inline-block;float:none"></span>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">编辑</a>
+		<span class="datagrid-btn-separator" style="vertical-align: middle;display:inline-block;float:none"></span>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteUser()">删除</a>
+		<br/>
+		<input class="easyui-searchbox" style="width:300px" data-options="searcher:userSearch,prompt:'请输入查询内容',menu:'#mm'"></input>
+		<div id="mm" style="width:120px">
+			<div data-options="name:'uname'">用户名</div> 
+			<div data-options="name:'cellphone'">手机号</div>
+			<div data-options="name:'address'">地址</div>
+		</div>
+	</div>
 	<div id="aud" class="easyui-window" title="添加用户" style="width: 450px;height: 170px;"
 		collapsible="false" minimizable="false" maximizable="false" closed="true" resizable="false" modal="true">
 		<div class="easyui-layout" fit="true">

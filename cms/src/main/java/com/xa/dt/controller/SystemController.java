@@ -74,9 +74,9 @@ public class SystemController {
 	
 	@RequestMapping("/getUsers")
 	@ResponseBody  
-	public DataGrid<UserBean> getUsers(String page, String rows) {
+	public DataGrid<UserBean> getUsers(String page, String rows, UserBean ub) {
 		logger.info("请求第{}页的用户信息", page);
-		return systemService.getUsers(Integer.parseInt(page), Integer.parseInt(rows), null);
+		return systemService.getUsers(Integer.parseInt(page), Integer.parseInt(rows), ub);
 	}
 	
 	@RequestMapping("/getMenuTree")

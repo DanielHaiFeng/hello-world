@@ -1,9 +1,20 @@
+function userSearch(value,name){
+	var obj = {};
+	obj[name] = value;
+	$("#utGrid").datagrid('load', obj);
+}
+
 function caud() {
 	$("#aud").window("close");
 }
 
 function ceud(){
 	$("#eud").window("close");
+}
+
+function addUser(){
+	$("#aud").window("open");
+	$('#addUser').form("clear");
 }
 
 function editUser() {
@@ -73,6 +84,7 @@ function deleteUser() {
 }
 
 $(function() {
+	
 	$.extend($.fn.validatebox.defaults.rules, {    
 	    equals: {    
 	        validator: function(value,param){    
@@ -120,26 +132,7 @@ $(function() {
 			title : '地址',
 			width : 100
 		} ] ],
-		toolbar : [ {
-			text : '添加',
-			iconCls : 'icon-add',
-			handler : function() {
-				$("#aud").window("open");
-				$('#addUser').form("clear");
-			}
-		}, '-', {
-			iconCls : 'icon-edit',
-			handler : function() {
-				editUser();
-			},
-			text : "编辑"
-		},'-', {
-			text : '删除',
-			iconCls : 'icon-remove',
-			handler : function(){
-				deleteUser();
-			}
-		} ],
+		toolbar : '#userToolBar',
 		queryParams : {
 		}
 	});
