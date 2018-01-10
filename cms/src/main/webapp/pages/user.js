@@ -67,7 +67,7 @@ function deleteUser() {
 		            contentType:"application/json",
 					success : function(data) {
 						$.messager.progress('close');
-						if(data.result){
+						if(data.result==0){
 							$.messager.alert("结果", data.msg, "info");
 							$("#utGrid").datagrid("reload");
 						}else{
@@ -149,8 +149,10 @@ $(function() {
 	    	$.messager.progress('close');
 	    	var rd = JSON.parse(data);
 	    	$.messager.alert("结果", rd.msg, "info");
-	    	$("#utGrid").datagrid("reload");
-	    	$('#eud').window('close');
+	    	if(rd.result!=1){
+	    		$("#utGrid").datagrid("reload");
+		    	$('#eud').window('close');
+	    	}
 		}
 	});
 	
@@ -166,8 +168,10 @@ $(function() {
 	    	$.messager.progress('close');
 	    	var rd = JSON.parse(data);
 	    	$.messager.alert("结果", rd.msg, "info");
-	    	$("#utGrid").datagrid("reload");
-	    	$('#aud').window('close');
+	    	if(rd.result!=1){
+	    		$("#utGrid").datagrid("reload");
+		    	$('#aud').window('close');
+	    	}
 		}
 	});
 })

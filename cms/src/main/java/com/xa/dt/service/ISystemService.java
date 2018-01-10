@@ -15,7 +15,7 @@ public interface ISystemService {
 	
 	public List<AccordionBean> getAccordion();
 
-	public boolean insertMenu(MenuBean menu);
+	public OpResult insertMenu(MenuBean menu);
 	
 	public List<MenuTree> getMenuTree(String id);
 	
@@ -30,4 +30,6 @@ public interface ISystemService {
 	public UserBean getUser(int uid);
 	
 	public DataGrid<UserBean> getUsers(int page, int rows, UserBean ub);
+	
+	public OpResult deleteMenu(List<Integer> mid);
 }

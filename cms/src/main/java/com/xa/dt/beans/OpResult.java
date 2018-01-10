@@ -2,15 +2,20 @@ package com.xa.dt.beans;
 
 public class OpResult{
 
-	private boolean result;
+	/**
+	 * result三种类型0 正常 1 冲突 2 失败
+	 */
+	private int result;
 	
 	private String msg;
+	
+	private Object obj;
 
-	public boolean isResult() {
+	public int getResult() {
 		return result;
 	}
 
-	public void setResult(boolean result) {
+	public void setResult(int result) {
 		this.result = result;
 	}
 
@@ -20,5 +25,13 @@ public class OpResult{
 
 	public void setMsg(String msg) {
 		this.msg = msg;
+	}
+
+	public Object getObj() {
+		return obj;
+	}
+
+	public void setObj(Object obj) {
+		this.obj = obj;
 	}
 }

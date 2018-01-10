@@ -19,6 +19,13 @@
 		from menu_table
 		where mid = #{mid,jdbcType=INTEGER}
 	</select>
+	<select id="getMenuByName" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from menu_table
+		where mname = #{mname,jdbcType=VARCHAR}
+	</select>
 	<select id="getMenus" parameterType="java.lang.Integer"
 	 resultMap="BaseResultMap">
 		select
@@ -62,6 +69,20 @@
 		menu_table
 		where mid = #{mid,jdbcType=INTEGER}
 	</delete>
+	
+	<delete id="deleteByIds" parameterType="list">
+		delete from menu_table
+		where mid in
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<select id="isMenuExist" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*) tnum
+		 from menu_table where mname = #{mname,jdbcType=VARCHAR}
+	</select>
 	<insert id="insert" parameterType="com.xa.dt.beans.MenuBean"
 		useGeneratedKeys="true" keyProperty="mid">
 		insert into menu_table (mid,

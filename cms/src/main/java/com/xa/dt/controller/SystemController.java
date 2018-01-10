@@ -91,4 +91,16 @@ public class SystemController {
 		logger.info("请求第{}页的菜单信息", page);
 	    return systemService.getMenuList(Integer.parseInt(page), Integer.parseInt(rows), mid);
 	}
+	
+	@RequestMapping("/insertMenu")
+	@ResponseBody 
+	public OpResult insertMenu(MenuBean mb){
+		return systemService.insertMenu(mb);
+	}
+	
+	@RequestMapping("/deleteMenu")
+	@ResponseBody  
+	public OpResult deleteMenu(@RequestBody List<Integer> midlist) {
+		return systemService.deleteMenu(midlist);
+	}
 }

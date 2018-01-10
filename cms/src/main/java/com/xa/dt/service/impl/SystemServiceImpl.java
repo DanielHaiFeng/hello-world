@@ -39,10 +39,10 @@ public class SystemServiceImpl implements ISystemService {
 		int result = userDao.isLogin(uname, upwd);
 		OpResult or = new OpResult();
 		if (result == 1) {
-			or.setResult(true);
+			or.setResult(0);
 			or.setMsg("登录成功！");
 		} else {
-			or.setResult(false);
+			or.setResult(2);
 			or.setMsg("用户名或密码不正确！");
 		}
 		return or;
@@ -62,9 +62,46 @@ public class SystemServiceImpl implements ISystemService {
 	}
 
 	@Override
-	public boolean insertMenu(MenuBean menu) {
-		int ri = menuDao.insert(menu);
-		return ri == 1 ? true : false;
+	public OpResult insertMenu(MenuBean menu) {
+		OpResult or = new OpResult();
+		String mname = menu.getMname();
+		boolean isExist = menuDao.isMenuExist(mname) == 1 ? true : false;
+		if (isExist) {
+			or.setResult(1);
+			or.setMsg("菜单[" + mname + "]已存在，请更换菜单名！");
+		} else {
+			int ac = menuDao.insert(menu);
+			or.setResult(ac == 1 ? 0 : 2);
+			if (or.getResult()==0) {
+				or.setMsg("添加成功");
+				MenuTree mt = new MenuTree();
+				MenuBean mb = menuDao.getMenuByName(menu.getMname());
+				mt.setId(String.valueOf(mb.getMid()));
+				mt.setText(mb.getMname());
+				mt.setState("close");
+				mt.setIconCls(mb.getMicon());
+				TreeAttributes ta = new TreeAttributes();
+				ta.setMlevel(mb.getMlevel());
+				mt.setAttributes(ta);
+				or.setObj(mt);
+			} else {
+				or.setMsg("添加失败");
+			}
+		}
+		return or;
+	}
+
+	@Override
+	public OpResult deleteMenu(List<Integer> mid) {
+		OpResult or = new OpResult();
+		int bdc = menuDao.deleteByIds(mid);
+		or.setResult(bdc == mid.size() ? 0 : 2);
+		if(or.getResult()==0){
+			or.setMsg("删除成功");
+		}else {
+			or.setMsg("删除失败");
+		}
+		return or;
 	}
 
 	@Override
@@ -102,12 +139,12 @@ public class SystemServiceImpl implements ISystemService {
 		String uname = user.getUname();
 		boolean isExist = userDao.isUserExist(uname) == 1 ? true :false ;
 		if(isExist){
-			or.setResult(false);
+			or.setResult(1);
 			or.setMsg("用户["+uname+"]已存在，请更换用户名！");
 		}else{
 			int ac = userDao.insert(user);
-			or.setResult(ac == 1 ? true : false);
-			if(or.isResult()){
+			or.setResult(ac == 1 ? 0 : 2);
+			if(or.getResult()==0){
 				or.setMsg("添加成功");
 			}else {
 				or.setMsg("添加失败");
@@ -122,12 +159,12 @@ public class SystemServiceImpl implements ISystemService {
 		String uname = user.getUname();
 		boolean isExist = userDao.isUserExistForEdit(uname, user.getUid()) == 1 ? true :false ;
 		if(isExist){
-			or.setResult(false);
+			or.setResult(1);
 			or.setMsg("用户["+uname+"]已存在，请更换用户名！");
 		}else{
 			int ac = userDao.updateByPrimaryKey(user);
-			or.setResult(ac == 1 ? true : false);
-			if(or.isResult()){
+			or.setResult(ac == 1 ? 0 : 2);
+			if(or.getResult()==0){
 				or.setMsg("编辑成功");
 			}else {
 				or.setMsg("编辑失败");
@@ -140,8 +177,8 @@ public class SystemServiceImpl implements ISystemService {
 	public OpResult deleteUsers(List<Integer> uid) {
 		OpResult or = new OpResult();
 		int bdc = userDao.deleteByIds(uid);
-		or.setResult(bdc == uid.size() ? true : false);
-		if(or.isResult()){
+		or.setResult(bdc == uid.size() ? 0 : 2);
+		if(or.getResult()==0){
 			or.setMsg("删除成功");
 		}else {
 			or.setMsg("删除失败");
