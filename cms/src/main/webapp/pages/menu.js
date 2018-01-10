@@ -1,6 +1,7 @@
 function deleteMenu() {
-	var rows = $('#menuContGrid').datagrid('getSelections');
+	var rows = $('#menuContGrid').datagrid('getChecked');
 	if(rows.length){
+		debugger;
 		var mids = new Array();
 		for(var i=0; i<rows.length; i++){
 			mids.push(rows[i].mid);
@@ -30,7 +31,7 @@ function deleteMenu() {
 						}else{
 							$.messager.alert("结果", data.msg, "warning");
 						}
-						$("#utGrid").datagrid("clearSelections");
+						$("#menuContGrid").datagrid("clearChecked");
 					}
 				});
 			}
