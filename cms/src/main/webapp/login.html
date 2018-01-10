@@ -38,7 +38,7 @@
 			    },   
 			    success:function(data){
 			    	var rd = JSON.parse(data);
-					if (rd.result) {
+					if (rd.result==0) {
 						window.localStorage.setItem('loginUser',$("[name='uname']").val());
 						window.location.href = "welcome.html";
 					} else {

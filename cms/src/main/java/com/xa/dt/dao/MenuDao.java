@@ -7,12 +7,18 @@ import com.xa.dt.beans.MenuBean;
 public interface MenuDao {
 	
     int deleteByPrimaryKey(Integer mid);
+    
+    int deleteByIds(List<Integer> mids);
 
+    int isMenuExist(String mname);
+    
     int insert(MenuBean record);
 
     int insertSelective(MenuBean record);
 
     MenuBean selectByPrimaryKey(Integer mid);
+    
+    MenuBean getMenuByName(String name);
     
 	List<MenuBean> getMenus(Integer pid);
     

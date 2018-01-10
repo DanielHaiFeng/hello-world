@@ -63,7 +63,7 @@
 	
 	<select id="isUserExist" parameterType="java.lang.String" resultType="java.lang.Integer">
 		select count(*) tnum
-		 from user_table where uname = #{uid,jdbcType=VARCHAR}
+		 from user_table where uname = #{uname,jdbcType=VARCHAR}
 	</select>
 	
 	<select id="isLogin" resultType="java.lang.Integer">
