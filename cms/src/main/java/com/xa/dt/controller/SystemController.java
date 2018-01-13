@@ -103,4 +103,16 @@ public class SystemController {
 	public OpResult deleteMenu(@RequestBody List<Integer> midlist) {
 		return systemService.deleteMenu(midlist);
 	}
+	
+	@RequestMapping("/getMenu")
+	@ResponseBody  
+	public MenuBean getMenu(@RequestParam int mid) {
+	    return systemService.getMenu(mid);
+	}
+	
+	@RequestMapping("/updateMenu")
+	@ResponseBody  
+	public OpResult updateMenu(MenuBean mb) {
+	    return systemService.updateMenu(mb);
+	}
 }

@@ -12,6 +12,8 @@ public interface MenuDao {
 
     int isMenuExist(String mname);
     
+    int isMenuExistForEdit(String mname, int mid);
+    
     int insert(MenuBean record);
 
     int insertSelective(MenuBean record);

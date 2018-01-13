@@ -103,6 +103,31 @@ public class SystemServiceImpl implements ISystemService {
 		}
 		return or;
 	}
+	
+	@Override
+	public MenuBean getMenu(int mid) {
+		return menuDao.selectByPrimaryKey(mid);
+	}
+
+	@Override
+	public OpResult updateMenu(MenuBean mb) {
+		OpResult or = new OpResult();
+		String mname = mb.getMname();
+		boolean isExist = menuDao.isMenuExistForEdit(mname, mb.getMid()) == 1 ? true :false ;
+		if(isExist){
+			or.setResult(1);
+			or.setMsg("菜单["+mname+"]已存在，请更换菜单名！");
+		}else{
+			int ac = menuDao.updateByPrimaryKeySelective(mb);
+			or.setResult(ac == 1 ? 0 : 2);
+			if(or.getResult()==0){
+				or.setMsg("编辑成功");
+			}else {
+				or.setMsg("编辑失败");
+			}
+		}
+		return or;
+	}
 
 	@Override
 	public List<MenuTree> getMenuTree(String id) {
@@ -162,7 +187,7 @@ public class SystemServiceImpl implements ISystemService {
 			or.setResult(1);
 			or.setMsg("用户["+uname+"]已存在，请更换用户名！");
 		}else{
-			int ac = userDao.updateByPrimaryKey(user);
+			int ac = userDao.updateByPrimaryKeySelective(user);
 			or.setResult(ac == 1 ? 0 : 2);
 			if(or.getResult()==0){
 				or.setMsg("编辑成功");

@@ -32,4 +32,8 @@ public interface ISystemService {
 	public DataGrid<UserBean> getUsers(int page, int rows, UserBean ub);
 	
 	public OpResult deleteMenu(List<Integer> mid);
+	
+	public MenuBean getMenu(int mid);
+	
+	public OpResult updateMenu(MenuBean mb);
 }
