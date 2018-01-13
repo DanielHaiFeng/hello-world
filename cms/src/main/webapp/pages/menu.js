@@ -37,7 +37,23 @@ function deleteMenu() {
 			}
 		});
 	} else {
-		$.messager.alert("删除用户", "请选择要删除的用户！", "warning");
+		$.messager.alert("删除用户", "请选择要删除的菜单！", "warning");
+	}
+}
+
+function editMenu() {
+	var rows = $('#menuContGrid').datagrid('getChecked');
+	if(rows.length){
+		if(rows.length!=1){
+			$.messager.alert("编辑菜单", "编辑菜单时只能选择一行！", "warning");
+			$("#menuContGrid").datagrid("clearChecked");
+		}else{
+			$('#editMenuFrm').form('clear');
+			$('#editMenuFrm').form('load','/cms/getMenu?mid='+rows[0].mid)
+			$('#editMenuDialog').dialog('open');
+		}
+	}else{
+		$.messager.alert("编辑菜单", "请选择要编辑的菜单！", "warning");
 	}
 }
 
@@ -89,12 +105,24 @@ function getChildMenu(mid, text){
 				$('#addMenuFrm').form("clear");
 				var dd = $('#tt').tree('getSelected');
 				$('#apid').val(dd.id);
-				$('#newMl').val(dd.attributes.mlevel + 1);
+				var nle = dd.attributes.mlevel + 1;
+				$('#newMl').val(nle);
+				if(nle<2){
+					$('#newUrl').validatebox({    
+					    required: false,
+					    readonly: true
+					}); 
+				}else{
+					$('#newUrl').validatebox({    
+					    required: true,
+					    readonly: false
+					}); 
+				}
 			}
 		}, '-', {
 			iconCls : 'icon-edit',
 			handler : function() {
-				
+				editMenu();
 			},
 			text : "编辑"
 		},'-', {
@@ -108,6 +136,8 @@ function getChildMenu(mid, text){
 			"mid": mid
 		}
 	});
+	
+	$("#menuContGrid").datagrid("clearChecked");
 }
 
 $(function() {
@@ -140,6 +170,23 @@ $(function() {
 			text:'取消',
 			handler:function(){
 				$('#addMenuDialog').dialog('close');
+			},
+			iconCls:'icon-cancel'
+		}]
+	});
+	
+	$('#editMenuDialog').dialog({
+		buttons:[{
+			text:'保存',
+			handler:function(){
+				$.messager.progress();
+				$('#editMenuFrm').form('submit');
+			},
+			iconCls:'icon-save'
+		},{
+			text:'取消',
+			handler:function(){
+				$('#editMenuDialog').dialog('close');
 			},
 			iconCls:'icon-cancel'
 		}]
@@ -179,6 +226,38 @@ $(function() {
 			    		}]
 			    	});
 		    	}
+	    	}
+		}
+	});
+	
+	$('#editMenuFrm').form({
+		url:'/cms/updateMenu',
+		onSubmit: function(){   
+	        if(!$('#editMenuFrm').form('validate')){
+	        	$.messager.progress('close');
+	        	return false;
+	        }
+	    },
+	    onLoadSuccess: function(data){
+	    	if(data.mlevel<2){
+				$('#edUrl').validatebox({    
+				    required: false,
+				    readonly: true
+				}); 
+			}else{
+				$('#edUrl').validatebox({
+				    required: true,
+				    readonly: false
+				}); 
+			}
+	    },
+	    success:function(data){
+	    	$.messager.progress('close');
+	    	var rd = JSON.parse(data);
+	    	$.messager.alert("结果", rd.msg, "info");
+	    	if(rd.result!=1){
+	    		$("#menuContGrid").datagrid("reload");
+		    	$('#editMenuDialog').dialog('close');
 	    	}
 		}
 	});

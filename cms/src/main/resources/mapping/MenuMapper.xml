@@ -83,6 +83,12 @@
 		select count(*) tnum
 		 from menu_table where mname = #{mname,jdbcType=VARCHAR}
 	</select>
+	
+	<select id="isMenuExistForEdit" resultType="java.lang.Integer">
+		select count(*) tnum
+		 from menu_table where mname = #{0} and mid != #{1}
+	</select>
+	
 	<insert id="insert" parameterType="com.xa.dt.beans.MenuBean"
 		useGeneratedKeys="true" keyProperty="mid">
 		insert into menu_table (mid,
