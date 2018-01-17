@@ -42,8 +42,8 @@ public class SystemController {
 	
 	@RequestMapping("/getAccordion")
 	@ResponseBody 
-	public List<AccordionBean> getAccordion(){
-		return systemService.getAccordion();
+	public List<AccordionBean> getAccordion(@RequestBody String uname){
+		return systemService.getAccordion(uname);
 	}
 	
 	@RequestMapping("/insertUser")
@@ -83,6 +83,18 @@ public class SystemController {
 	@ResponseBody  
 	public List<MenuTree> getMenuTree(@RequestParam String id) {
 	    return systemService.getMenuTree(id);
+	}
+	
+	@RequestMapping("/getAuthorizeMenuTree")
+	@ResponseBody  
+	public List<MenuTree> getAuthorizeMenuTree(@RequestParam int uid) {
+	    return systemService.getAuthorizeMenuTree(uid);
+	}
+	
+	@RequestMapping("/authorizeMenu")
+	@ResponseBody 
+	public OpResult authorizeMenu(@RequestParam("uid") int uid,@RequestParam("mids") String mids){
+		return systemService.authorizeMenu(uid, mids);
 	}
 	
 	@RequestMapping("/getMenuList")

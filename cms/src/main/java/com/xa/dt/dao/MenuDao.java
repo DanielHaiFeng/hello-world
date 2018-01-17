@@ -23,6 +23,8 @@ public interface MenuDao {
     MenuBean getMenuByName(String name);
     
 	List<MenuBean> getMenus(Integer pid);
+	
+	List<MenuBean> getAuthorizeMenus(Integer uid);
     
     List<MenuBean> getMenuList(MenuBean record);
     

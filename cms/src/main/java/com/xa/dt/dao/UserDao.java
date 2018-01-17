@@ -14,6 +14,8 @@ public interface UserDao {
     
     int isUserExist(String uname);
     
+    UserBean getUserByName(String uname);
+    
     int isUserExistForEdit(String uname, int uid);
 
     int insert(UserBean record);

@@ -15,6 +15,8 @@ public class AccordionBean implements Serializable{
 	
 	private String url;
 	
+	private boolean visible;
+	
 	private List<AccordionBean> menus;
 
 	public int getMenuid() {
@@ -47,6 +49,14 @@ public class AccordionBean implements Serializable{
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public boolean isVisible() {
+		return visible;
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
 	}
 
 	public List<AccordionBean> getMenus() {

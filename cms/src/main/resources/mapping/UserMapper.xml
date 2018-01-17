@@ -66,6 +66,12 @@
 		 from user_table where uname = #{uname,jdbcType=VARCHAR}
 	</select>
 	
+	<select id="getUserByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		 from user_table where uname = #{uname,jdbcType=VARCHAR}
+	</select>
+	
 	<select id="isLogin" resultType="java.lang.Integer">
 		select count(*) tnum
 		 from user_table where uname = #{0} and upwd = #{1}

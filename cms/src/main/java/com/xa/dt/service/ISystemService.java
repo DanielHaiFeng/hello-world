@@ -13,11 +13,15 @@ public interface ISystemService {
 	
 	public OpResult login(String uname, String upwd);
 	
-	public List<AccordionBean> getAccordion();
+	public List<AccordionBean> getAccordion(String uname);
 
 	public OpResult insertMenu(MenuBean menu);
 	
 	public List<MenuTree> getMenuTree(String id);
+	
+	public List<MenuTree> getAuthorizeMenuTree(Integer uid);
+	
+	public OpResult authorizeMenu(int uid, String mids);
 	
 	public DataGrid<MenuBean> getMenuList(int page, int rows, int mid);
 	

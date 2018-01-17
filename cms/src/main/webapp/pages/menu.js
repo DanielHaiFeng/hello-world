@@ -1,7 +1,6 @@
 function deleteMenu() {
 	var rows = $('#menuContGrid').datagrid('getChecked');
 	if(rows.length){
-		debugger;
 		var mids = new Array();
 		for(var i=0; i<rows.length; i++){
 			mids.push(rows[i].mid);

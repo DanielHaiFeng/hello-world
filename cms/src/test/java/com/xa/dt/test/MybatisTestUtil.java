@@ -29,7 +29,7 @@ public class MybatisTestUtil {
 		menu.setMlevel(2);
 		menu.setMicon("icon-role");
 		menu.setPid(1);
-		menu.setMname("dtTest");
+		menu.setMname("测试");
 		menu.setUrl("pages/index.html");
 		System.out.println(iSystemService.insertMenu(menu));
 	}

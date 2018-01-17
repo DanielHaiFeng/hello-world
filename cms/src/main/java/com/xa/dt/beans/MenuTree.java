@@ -12,6 +12,8 @@ public class MenuTree implements Serializable {
 	private String text;
 
 	private String state;
+	
+	private boolean checked;
 
 	private String iconCls;
 	
@@ -41,6 +43,14 @@ public class MenuTree implements Serializable {
 
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
 	}
 
 	public String getIconCls() {

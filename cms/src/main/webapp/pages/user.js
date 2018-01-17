@@ -18,11 +18,11 @@ function addUser(){
 }
 
 function editUser() {
-	var rows = $('#utGrid').datagrid('getSelections');
+	var rows = $('#utGrid').datagrid('getChecked');
 	if(rows.length){
 		if(rows.length!=1){
 			$.messager.alert("编辑用户", "编辑用户时只能选择一行！", "warning");
-			$("#utGrid").datagrid("clearSelections");
+			$("#utGrid").datagrid("clearChecked");
 		}else{
 			$('#eud').form('clear');
 			$('#eud').form({
@@ -49,7 +49,7 @@ function saveUser(){
 }
 
 function deleteUser() {
-	var rows = $('#utGrid').datagrid('getSelections');
+	var rows = $('#utGrid').datagrid('getChecked');
 	if(rows.length){
 		var uids = new Array();
 		for(var i=0; i<rows.length; i++){
@@ -69,6 +69,8 @@ function deleteUser() {
 						$.messager.progress('close');
 						if(data.result==0){
 							$.messager.alert("结果", data.msg, "info");
+							var parent$ = self.parent.$;      //找到父级DOM  
+				            parent$('#tabs').tabs('close','权限管理');
 							$("#utGrid").datagrid("reload");
 						}else{
 							$.messager.alert("结果", data.msg, "warning");
@@ -170,6 +172,8 @@ $(function() {
 	    	$.messager.alert("结果", rd.msg, "info");
 	    	if(rd.result!=1){
 	    		$("#utGrid").datagrid("reload");
+	    		var parent$ = self.parent.$;      //找到父级DOM  
+	            parent$('#tabs').tabs('close','权限管理');
 		    	$('#aud').window('close');
 	    	}
 		}

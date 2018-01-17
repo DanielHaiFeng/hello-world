@@ -8,6 +8,7 @@
 		<result column="mlevel" jdbcType="INTEGER" property="mlevel" />
 		<result column="url" jdbcType="VARCHAR" property="url" />
 		<result column="pid" jdbcType="INTEGER" property="pid" />
+		<result column="checked" jdbcType="VARCHAR" property="checked"/>
 	</resultMap>
 	<sql id="Base_Column_List">
 		mid, mname, micon, mlevel, url, pid
@@ -34,6 +35,11 @@
 		<if test="pid!=null and pid!=''">  
 		    and pid = #{mid,jdbcType=INTEGER}
 		</if> 
+	</select>
+	<select id="getAuthorizeMenus" parameterType="java.lang.Integer"
+	 resultMap="BaseResultMap">
+		select mt.*, if(midt.mid is null, 'false', 'true') checked from menu_table mt 
+		left join (select mid from authorize_table aut where aut.uid = #{uid,jdbcType=INTEGER}) midt on mt.mid = midt.mid;
 	</select>
 	<select id="getMenuList" parameterType="com.xa.dt.beans.MenuBean"
 		resultMap="BaseResultMap">

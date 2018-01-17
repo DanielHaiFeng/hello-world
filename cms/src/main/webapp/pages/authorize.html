@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html style="height: 97%">
+<head>
+<meta charset="UTF-8">
+<title>授权页面</title>
+	<link rel="stylesheet" type="text/css" href="../easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../easyui/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="../css/default.css">
+	<script type="text/javascript" src="../easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="../easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="authorize.js"></script>
+</head>
+<body style="height: 100%;" class="easyui-layout">
+    <div data-options="region:'center'" >
+    	<table id="uaGrid">
+    	</table>
+    </div>
+    
+    <div id="uaToolBar">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="userAuthorize()">授权</a>
+		<br/>
+		<input class="easyui-searchbox" style="width:300px" data-options="searcher:uaSearch,prompt:'请输入查询内容',menu:'#mm'"></input>
+		<div id="mm" style="width:120px">
+			<div data-options="name:'uname'">用户名</div>
+			<div data-options="name:'cellphone'">手机号</div>
+			<div data-options="name:'address'">地址</div>
+		</div>
+	</div>
+	
+    <div id="uaDialog" class="easyui-dialog" title="授权" style="width: 300px;height: 460px;"
+    	class="easyui-dialog" collapsible="false" minimizable="false" maximizable="false" closed="true" resizable="false" modal="true">
+    	<form id="uaFrm" method="post">
+    		<input type="hidden" id="uid" name="uid" />
+    		<input type="hidden" id="mids" name="mids">
+    		<div style="width:180px" >
+				<ul id="uatree"></ul>
+			</div>
+    	</form>
+    </div>
+	
+</body>
+</html>
