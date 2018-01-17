@@ -14,6 +14,8 @@ public class MenuBean extends CommonBean{
 
     private Integer pid;
     
+    private String checked;
+    
     public Integer getMid() {
         return mid;
     }
@@ -61,4 +63,12 @@ public class MenuBean extends CommonBean{
     public void setPid(Integer pid) {
         this.pid = pid;
     }
+
+	public String getChecked() {
+		return checked;
+	}
+
+	public void setChecked(String checked) {
+		this.checked = checked;
+	}
 }

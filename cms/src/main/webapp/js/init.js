@@ -51,16 +51,19 @@ function initAccordion(menus) {
 		var menulist ='';
 		menulist +='<ul>';
         $.each(n.menus, function(j, o) {
-			menulist += '<li><div><a ref="'+o.menuid+'" href="#" rel="' + o.url + '" ><span class="icon" >&nbsp;</span><span class="nav">' + o.menuname + '</span></a></div></li> ';
+        	if(o.visible){
+        		menulist += '<li><div><a ref="'+o.menuid+'" href="#" rel="' + o.url + '" ><span class="icon" >&nbsp;</span><span class="nav">' + o.menuname + '</span></a></div></li> ';
+        	}
         })
-		menulist += '</ul>';
-
-		$('#ngm').accordion('add', {
-            title: n.menuname,
-            content: menulist,
-            iconCls: n.icon
-        });
-
+        
+        if(menulist.length>4){
+        	menulist += '</ul>';
+    		$('#ngm').accordion('add', {
+                title: n.menuname,
+                content: menulist,
+                iconCls: n.icon
+            });
+        }
     });
 
 	$('.easyui-accordion li a').click(function(){
@@ -114,15 +117,17 @@ function closePwd() {
 }
 
 $(function(){
-	if(!window.localStorage.getItem('loginUser')){
+	var loginUser = window.localStorage.getItem('loginUser');
+	if(!loginUser){
 		window.location.href="login.html"
 	}else{
-		$('#uname').text(window.localStorage.getItem('loginUser'));
+		$('#uname').text(loginUser);
 		$.ajax({
 			type:"post",
 			url : "/cms/getAccordion",
 			cache: false,
-			dataType:"json",      
+			dataType:"json",
+			data:loginUser,
 	        contentType:"application/json",
 			success : function(data) {
 				menus = data;
@@ -147,7 +152,8 @@ $(function(){
 		$('#qt').click(function() {
 			$.messager.confirm('系统提示', '您确定要退出本次登录吗?', function(r) {
 				if (r) {
-					location.href = '/ajax/loginout.ashx';
+					window.localStorage.removeItem('loginUser');
+					window.location.href = 'login.html';
 				}
 			});
 		})
