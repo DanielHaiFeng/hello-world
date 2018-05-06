@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>home page</title>
+<link rel="stylesheet" type="text/css" href="../static/easyui/themes/default/easyui.css" th:href="@{easyui/themes/default/easyui.css}" />
+<link rel="stylesheet" type="text/css" href="../static/easyui/themes/icon.css" th:href="@{easyui/themes/icon.css}" />
+<link rel="stylesheet" type="text/css" href="../static/easyui/themes/color.css" th:href="@{easyui/themes/color.css}" />
+<script type="text/javascript" src="../static/easyui/jquery.min.js" th:src="@{easyui/jquery.min.js}"></script>
+<script type="text/javascript" src="../static/easyui/jquery.easyui.min.js" th:src="@{easyui/jquery.easyui.min.js}"></script>
+<script type="text/javascript" src="../static/easyui/locale/easyui-lang-zh_CN.js" th:src="@{easyui/locale/easyui-lang-zh_CN.js}" ></script>
+<!-- 自定义js文件引用  -->
+<script type="text/javascript" src="../static/js/index.js" th:src="@{js/index.js}"></script>
+
+</head>
+<body class="easyui-layout">
+	<div data-options="region:'north',title:'North Title',split:false" style="height: 100px;"></div>
+	<div data-options="region:'south',title:'South Title',split:false" style="height: 100px;"></div>
+	<div data-options="region:'east',iconCls:'icon-reload',title:'East',split:false" style="width: 100px;"></div>
+	<div data-options="region:'west',title:'West',split:false" style="width: 100px;"></div>
+	<div data-options="region:'center',title:'center title',split:false" style="padding: 0px; background: #eee;">
+		<div id="panel" class="easyui-panel" title="My Panel" style="padding: 0px;margin:0px; background: #fafafa;" data-options="iconCls:'icon-save',closable:false,fit:true,  
+                collapsible:true,minimizable:false,maximizable:false,split:false">
+			<table>
+				<tr>
+					<td>File to upload:</td>
+					<td><input type="file" name="file" id="upfile" readonly="readonly" /></td>
+					<td>
+						<a id="btn" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="upload();">upload</a>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input id="cc" name="dept" />
+					</td>
+					<td>
+						<input id="ct" name="dept" />
+					</td>
+					<td>
+						<input id="ht" name="dept" />
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
