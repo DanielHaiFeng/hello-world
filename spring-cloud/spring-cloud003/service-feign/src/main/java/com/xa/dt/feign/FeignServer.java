@@ -16,7 +16,7 @@ public class FeignServer {
 	
 	/*
 	 * ProviderServer can be ran more times with different server.port form mock many server instance
-	 * https://blog.csdn.net/forezp/article/details/69788938
+	 * https://blog.csdn.net/forezp/article/details/69808079
 	 */
 	
 	public static void main(String[] args) {
