@@ -7,7 +7,7 @@
 	<version>0.0.1</version>
 	<packaging>jar</packaging>
 
-	<name>eureka-server</name>
+	<name>service-ribbon</name>
 	<url>http://maven.apache.org</url>
 
 	<parent>
@@ -44,13 +44,22 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-config</artifactId>
-			<version>1.4.2.RELEASE</version>
+			<artifactId>spring-cloud-starter-eureka</artifactId>
+			<version>1.4.4.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-eureka</artifactId>
+			<artifactId>spring-cloud-starter-ribbon</artifactId>
 			<version>1.4.4.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>

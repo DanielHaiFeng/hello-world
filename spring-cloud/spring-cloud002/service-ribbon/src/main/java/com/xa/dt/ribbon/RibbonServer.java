@@ -1,5 +1,7 @@
-package com.xa.dt.eureka.caller;
+package com.xa.dt.ribbon;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -9,22 +11,23 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-public class CallerServer {
+public class RibbonServer {
+	
+	private static Logger log = LoggerFactory.getLogger(RibbonServer.class);
 	
 	/*
-	 * access url1 : http://localhost:8764/work?name=tianweiyan&jobName=wash
-	 * access url2 : http://localhost:8764/hi?name=tianweiyan
 	 * ProviderServer can be ran more times with different server.port form mock many server instance
-	 * https://blog.csdn.net/forezp/article/details/69696915
+	 * https://blog.csdn.net/forezp/article/details/69788938
 	 */
 	
 	public static void main(String[] args) {
-		SpringApplication.run(CallerServer.class, args);
+		log.info("启动Ribbon server");
+		SpringApplication.run(RibbonServer.class, args);
 	}
-
+	
 	@Bean
-	@LoadBalanced
-	RestTemplate restTemplate() {
-		return new RestTemplate();
-	}
+    @LoadBalanced
+    RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 }
