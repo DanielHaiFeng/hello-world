@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 @EnableEurekaClient
 @RestController
 public class ProviderServer {
+	
+	/*
+	 * ProviderServer can be ran more times with different server.port form mock many server instance
+	 */
+	
 	public static void main(String[] args) {
 		SpringApplication.run(ProviderServer.class, args);
 	}
