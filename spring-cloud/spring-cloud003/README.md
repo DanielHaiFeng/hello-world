@@ -1,1 +1,1 @@
-the useage of spring-cloud ribbon
+the useage of spring-cloud Feign
