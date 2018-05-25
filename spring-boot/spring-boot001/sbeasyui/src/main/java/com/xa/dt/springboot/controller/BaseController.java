@@ -36,9 +36,9 @@ public class BaseController {
 		return baseService.getTableComboBox(type);
 	}
 	
-	@RequestMapping("/getUser")
+	@RequestMapping("/getArticles")
 	@ResponseBody
-	public List<ComboBox> getUser() {
-		return baseService.getUser();
+	public List<ComboBox> getArticles() {
+		return baseService.getArticle();
 	}
 }

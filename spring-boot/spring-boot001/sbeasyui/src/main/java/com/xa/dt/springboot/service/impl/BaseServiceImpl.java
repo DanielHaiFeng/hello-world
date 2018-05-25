@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.xa.dt.springboot.bean.Article;
 import com.xa.dt.springboot.bean.ComboBox;
-import com.xa.dt.springboot.bean.User;
 import com.xa.dt.springboot.dao.BaseDao;
 import com.xa.dt.springboot.service.BaseService;
 
@@ -52,16 +52,20 @@ public class BaseServiceImpl implements BaseService {
 	}
 
 	@Override
-	public List<ComboBox> getUser() {
-		List<User> list = baseDao.queryUsers();
-		List<ComboBox> cbl = new ArrayList<ComboBox>();
-		for(User u:list){
-			ComboBox cb = new ComboBox();
-			cb.setId(String.valueOf(u.getId()));
-			cb.setText(u.getName());
-			cbl.add(cb);
+	public List<ComboBox> getArticle() {
+		
+		List<Article> list = baseDao.query(null);
+		List<ComboBox> results = new ArrayList<ComboBox>();
+		for(Article a:list){
+			ComboBox c = new ComboBox();
+			c.setId(String.valueOf(a.getId()));
+			c.setText(a.getTitle());
+			results.add(c);
 		}
-		return cbl;
+		
+		log.info("获取到的文章个数[{}]", results.size());
+		
+		return results;
 	}
 
 }
