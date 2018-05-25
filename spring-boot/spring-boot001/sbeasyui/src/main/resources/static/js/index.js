@@ -22,9 +22,12 @@ $(function() {
 		}
 	});
 	
-	$('#ct').combobox({
-		url : rootContextPath+'/getUser',
+	$('#at').combobox({
+		url : rootContextPath+'/getArticles',
 		valueField : 'id',
-		textField : 'text'
+		textField : 'text',
+		queryParams : {
+			'type' : 'all'
+		}
 	});
 })

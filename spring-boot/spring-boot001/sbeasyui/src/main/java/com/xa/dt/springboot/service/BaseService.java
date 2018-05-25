@@ -8,5 +8,5 @@ public interface BaseService {
 
 	public List<ComboBox> getTableComboBox(String type);
 	
-	public List<ComboBox> getUser();
+	public List<ComboBox> getArticle();
 }

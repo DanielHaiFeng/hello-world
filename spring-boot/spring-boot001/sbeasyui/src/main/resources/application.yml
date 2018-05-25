@@ -1,7 +1,5 @@
 spring:
- profiles:
-  active: prod
- thymeleaf:
-  prefix: classpath:/templates/
+  profiles:
+    active: dev
 logging:
- config: classpath:logback1.xml
+  config: classpath:sb-logback.xml

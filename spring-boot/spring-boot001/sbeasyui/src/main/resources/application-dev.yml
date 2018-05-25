@@ -1,8 +1,9 @@
-server: 
+server:
  port: 8081
  context-path: /dev
-
 spring:
+ thymeleaf:
+ prefix: classpath:/templates/
  datasource:
   url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=UTF-8&useSSL=false
   driverClassName: com.mysql.jdbc.Driver
