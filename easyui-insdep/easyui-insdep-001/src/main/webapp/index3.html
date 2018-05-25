@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>EasyuiInsdep03</title>
+
+<link href="easyui/themes/insdep/reset.min.css" rel="stylesheet" type="text/css">
+<!--reset.min.css 根据实际情况引入，如果你有自己的初始化样式表可以不引入当前样式-->
+
+<link rel="stylesheet" href="easyui/themes/icon.css" />
+<link rel="stylesheet" href="easyui/themes/color.css" />
+
+<link href="easyui/themes/insdep/easyui_full.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="easyui/jquery.min.js"></script>
+<script type="text/javascript" src="easyui/jquery.easyui-1.5.1.min.js"></script>
+<script type="text/javascript" src="easyui/themes/insdep/jquery.insdep-extend.min.js"></script>
+
+<script type="text/javascript">
+	$(function() {
+		$.messager.alert('我的消息','这是一个提示信息！');
+	});
+</script>
+
+</head>
+
+<body>
+	<input class="easyui-switchbutton" data-options="onText:'Yes',offText:'No'">
+	<div id="p" class="easyui-panel" title="My Panel" style="width: 500px; height: 150px; padding: 10px; background: #fafafa;" data-options="closable:true,    
+                collapsible:true,minimizable:true,maximizable:true">
+		<p>panel content.</p>
+		<p>panel content.</p>
+	</div>
+</body>
+</html>

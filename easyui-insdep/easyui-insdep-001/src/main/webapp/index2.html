@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>EasyuiInsdep02</title>
+
+<link href="easyui/themes/insdep/reset.min.css" rel="stylesheet" type="text/css">
+<!--reset.min.css 根据实际情况引入，如果你有自己的初始化样式表可以不引入当前样式-->
+
+<link rel="stylesheet" href="easyui/themes/icon.css" />
+<link rel="stylesheet" href="easyui/themes/color.css" />
+
+<link href="easyui/themes/insdep/easyui_full.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="easyui/jquery.min.js"></script>
+<script type="text/javascript" src="easyui/jquery.easyui-1.5.1.min.js"></script>
+<script type="text/javascript" src="easyui/themes/insdep/jquery.insdep-extend.min.js"></script>
+
+<script type="text/javascript">
+	$(function() {
+		$('#btn').linkbutton({
+			iconCls : 'icon-search'
+		});
+
+		$('#cc').calendar({
+			current : new Date()
+		});
+
+		$('#combox').combobox({
+			url : 'data/combobox_data.json',
+			valueField : 'id',
+			textField : 'text',
+			required : true
+		});
+
+		$('#dg').datagrid({
+			url : 'data/datagrid_data.json',
+			columns : [ [ {
+				field : 'code',
+				title : 'Code'
+			}, {
+				field : 'name',
+				title : 'Name'
+			}, {
+				field : 'price',
+				title : 'Price'
+			} ] ],
+			pagination : true,
+			singleSelect : true
+		});
+		
+		$.messager.alert('警告','警告消息'); 
+		
+		$('#dd').dialog({    
+		    title: 'My Dialog',    
+		    width: 400,    
+		    height: 200,    
+		    closed: false,    
+		    cache: false,    
+		    href: 'get_content.php',    
+		    modal: true   
+		}); 
+		
+		$('#win').window({    
+		    width:600,    
+		    height:400,    
+		    modal:true   
+		}); 
+		
+		$('#nn').numberbox({
+		    min:10,
+		    precision:2
+		});
+	});
+</script>
+
+</head>
+
+<body>
+	<a id="btn" href="#">查询</a>
+	<div id="cc" style="width: 180px; height: 180px;"></div>
+	<input id="combox" name="dept">
+
+	<table id="dg"></table>
+
+	<div id="dd">Dialog Content.</div>
+
+	<div id="win"></div>
+
+	<input type="text" id="nn"></input>
+
+	<ul id="tt" class="easyui-tree">
+		<li><span>Folder</span>
+			<ul>
+				<li><span>Sub Folder 1</span>
+					<ul>
+						<li><span><a href="#">File 11</a></span></li>
+						<li><span>File 12</span></li>
+						<li><span>File 13</span></li>
+					</ul></li>
+				<li><span>File 2</span></li>
+				<li><span>File 3</span></li>
+			</ul></li>
+		<li><span>File21</span></li>
+	</ul>
+
+</body>
+</html>
