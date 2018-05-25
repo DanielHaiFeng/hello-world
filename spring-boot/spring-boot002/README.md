@@ -1,0 +1,1 @@
+example of hateoas in spring-boot
