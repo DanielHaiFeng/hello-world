@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="600 seconds">
+    <contextName>boot-jersey</contextName>
+    <jmxConfigurator />
+    <!-- 开发环境配置 -->
+    <substitutionProperty name="log.base" value="../logs/boot-jersey/" />
+    <!-- 测试、生产环境使用该配置,具体路径根据发布目录确定
+    <substitutionProperty name="log.base" value="/app/IBM/WebSphere/AppServer/profiles/AppSrv05/logs/server1/Fulfill/"/>
+     -->
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%date [%thread] [%contextName] [%X{traceId}] %-5level %logger{80}.%L - %msg%n</pattern>
+        </layout>
+    </appender>
+
+    <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${log.base}boot-jersey.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <maxHistory>30</maxHistory>
+            <fileNamePattern>${log.base}bootJersey.%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%date [%thread] [%contextName] [%X{traceId}] %-5level %logger{80}.%L - %msg%n</pattern>
+        </layout>
+    </appender>
+
+    <logger name="com.xa.dt">
+        <level value="DEBUG" />
+    </logger>
+
+    <logger name="com.boco.commons.file.impl">
+        <level value="ERROR" />
+    </logger>
+
+    <logger name="org.apache.zookeeper">
+        <level value="ERROR" />
+    </logger>
+
+    <logger name="org.springframework">
+        <level value="ERROR" />
+    </logger>
+    
+    <logger name="org.mybatis.spring">
+        <level value="ERROR" />
+    </logger>
+
+	<logger name="org.apache.activemq">
+		<level value="ERROR" />
+	</logger>
+
+    <root>
+        <level value="DEBUG" />
+        <appender-ref ref="stdout" />
+        <appender-ref ref="logfile" />
+    </root>
+
+</configuration>
