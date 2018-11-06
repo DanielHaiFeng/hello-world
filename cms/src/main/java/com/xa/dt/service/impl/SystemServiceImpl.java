@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,6 @@ import com.xa.dt.dao.AuthorizeDao;
 import com.xa.dt.dao.MenuDao;
 import com.xa.dt.dao.UserDao;
 import com.xa.dt.service.ISystemService;
-import com.xa.dt.util.StringUtils;
 
 import net.sf.json.JSONArray;
 
@@ -335,7 +336,7 @@ public class SystemServiceImpl implements ISystemService {
 					mtt.setId(String.valueOf(mb.getMid()));
 					mtt.setText(mb.getMname());
 					mtt.setState("close");
-					String checked = StringUtils.convertToStr(mb.getChecked());
+					String checked = ObjectUtils.toString(mb.getChecked());
 					mtt.setChecked(StringUtils.isBlank(checked)?false:Boolean.valueOf(checked));
 					mtt.setIconCls(mb.getMicon());
 					TreeAttributes ta = new TreeAttributes();
