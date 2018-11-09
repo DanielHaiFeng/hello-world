@@ -12,9 +12,15 @@ public class PageController {
 
     Logger logger = LoggerFactory.getLogger(PageController.class);
 
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login(Model model) {
+        logger.debug("跳转到登录页面！");
+        return "login";
+    }
+
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String home(Model model) {
         logger.debug("跳转到web项目首页！");
-        return "index";
+        return "home";
     }
 }

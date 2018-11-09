@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>后台管理</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/login.css" th:href="@{css/login.css}"/>
+</head>
+
+<body>
+<div class="login_box">
+      <div class="login_l_img"><img src="../images/login-img.png" th:src="@{images/login-img.png}"/></div>
+      <div class="login">
+          <div class="login_logo"><img src="../images/login_logo.png" th:src="@{images/login_logo.png}"/></div>
+          <div class="login_name">
+               <p>后台管理系统</p>
+          </div>
+          <form method="post">
+              <input name="userName" type="text" id="userName" placeholder="用户名" />
+              <input name="password" type="password" id="password" placeholder="密码"/>
+              <input value="登录" style="width:100%;" type="submit"/>
+          </form>
+      </div>
+      <div class="copyright">海峰信息技术有限公司 版权所有©2016-2018 技术支持电话：18682930090</div>
+</div>
+</body>
+</html>
