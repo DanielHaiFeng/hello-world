@@ -22,6 +22,8 @@ $(function () {
                 });
                 return false;
             }
+            var base64 = new Base64();
+            $('#loginFrm').find('#password').val(base64.encode(upwd));
         },
         success: function (data) {
             var result = JSON.parse(data);
@@ -30,7 +32,7 @@ $(function () {
             } else {
                 $.messager.show({
                     title:'提示',
-                    msg:data.message,
+                    msg:result.message,
                     timeout:1000,
                     showType:'slide'
                 });
