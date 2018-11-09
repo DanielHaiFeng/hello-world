@@ -87,6 +87,7 @@
     </dependencies>
 
     <build>
+        <finalName>ims</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -104,6 +105,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>
