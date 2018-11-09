@@ -90,10 +90,12 @@ public class LoginFilter implements Filter {
         Base64 base64 = wac.getBean(Base64.class);
         if (cookies != null) {
             for (Cookie cookie : cookies) {
+                String cName = cookie.getName();
                 String cVal = cookie.getValue();
-                logger.debug("Cookie的key[{}] value[{}]", cookie.getName(), cVal);
+                logger.debug("Cookie的key[{}] value[{}]", cName, cVal);
                 String upVal = base64.getFromBase64(cVal);
-                if (!upVal.contains("-")) {
+                logger.debug("解密后字符串[{}]", upVal);
+                if (cName.equals("JSESSIONID") || !upVal.contains("-")) {
                     continue;
                 }
                 String[] userPwdTmp = upVal.split("-");
@@ -101,6 +103,8 @@ public class LoginFilter implements Filter {
                 String password = userPwdTmp[1];
                 JSONObject object = userService.login(userName, password);
                 if (object.getBoolean("success")) {
+                    //浏览器关闭之后，再次打开浏览器，虽然cookie还在，但是session已经是另外一个了，其中的userName已经不存在了；
+                    //如果不添加session中的判断，当服务器重启之后，只要不清除cookie，那么再次访问/ims/index的话，就会直接进入到首页；
                     String sessionUserName = ObjectUtils.toString(request.getSession().getAttribute(sessionUserNameKey));
                     if (sessionUserName.equals(userName)) {
                         return true;
@@ -114,14 +118,18 @@ public class LoginFilter implements Filter {
     }
 
     public boolean isNeedFilter(String uri, String rootPath) {
-        if (uri.endsWith(".js") || uri.endsWith(".css") || uri.endsWith(".png") || uri.endsWith(".gif")) {
-            return false;
-        }
-        for (String includeUrl : includeUrls) {
-            if (uri.equals(rootPath + includeUrl)) {
-                return false;
+        String fUri = uri.split(";jsessionid=")[0];
+        boolean flag = true;
+        if (fUri.endsWith(".js") || fUri.endsWith(".css") || fUri.endsWith(".png") || fUri.endsWith(".gif")) {
+            flag = false;
+        } else {
+            for (String includeUrl : includeUrls) {
+                if (fUri.equals(rootPath + includeUrl)) {
+                    flag = false;
+                }
             }
         }
-        return true;
+        logger.debug("检查URL[{}]是否需要过滤[{}]", fUri, flag);
+        return flag;
     }
 }
