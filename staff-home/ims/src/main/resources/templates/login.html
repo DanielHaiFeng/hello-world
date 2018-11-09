@@ -6,7 +6,19 @@
     <meta http-equiv="Cache-Control" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <title>后台管理</title>
+
+    <link rel="stylesheet" type="text/css" href="../static/easyui/themes/insdep/reset.min.css" th:href="@{easyui/themes/insdep/reset.min.css}" />
+    <!--reset.min.css 根据实际情况引入，如果你有自己的初始化样式表可以不引入当前样式-->
+    <link rel="stylesheet" type="text/css" href="../static/easyui/themes/icon.css" th:href="@{easyui/themes/icon.css}"/>
+    <link rel="stylesheet" type="text/css" href="../static/easyui/themes/color.css" th:href="@{easyui/themes/color.css}"/>
+    <link rel="stylesheet" type="text/css" href="../static/easyui/themes/insdep/easyui_full.css" th:href="@{easyui/themes/insdep/easyui_full.css}" />
+    <script type="text/javascript" src="../static/easyui/jquery.min.js" th:src="@{easyui/jquery.min.js}"></script>
+    <script type="text/javascript" src="../static/easyui/jquery.easyui-1.5.1.min.js" th:src="@{easyui/jquery.easyui-1.5.1.min.js}"></script>
+    <script type="text/javascript" src="../static/easyui/themes/insdep/jquery.insdep-extend.min.js" th:src="@{easyui/themes/insdep/jquery.insdep-extend.min.js}"></script>
+
     <link rel="stylesheet" type="text/css" href="../static/css/login.css" th:href="@{css/login.css}"/>
+    <script type="text/javascript" src="../static/js/utils.js" th:src="@{js/utils.js}"></script>
+    <script type="text/javascript" src="../static/js/login.js" th:src="@{js/login.js}"></script>
 </head>
 
 <body>
@@ -17,9 +29,9 @@
           <div class="login_name">
                <p>后台管理系统</p>
           </div>
-          <form method="post">
+          <form method="post" action="#" onsubmit="return onLogin(this)">
               <input name="userName" type="text" id="userName" placeholder="用户名" />
-              <input name="password" type="password" id="password" placeholder="密码"/>
+              <input name="password" type="password" id="password" placeholder="密码" />
               <input value="登录" style="width:100%;" type="submit"/>
           </form>
       </div>
