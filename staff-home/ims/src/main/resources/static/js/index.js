@@ -1,57 +1,48 @@
 $(function () {
-    console.log(getRootPath());
-
-    $('#btn').linkbutton({
-        iconCls: 'icon-search'
+    $('#loginFrm').form({
+        url: rootPath + '/login',
+        onSubmit: function () {
+            var uName = $('#loginFrm').find('#userName').val();
+            var upwd = $('#loginFrm').find('#password').val();
+            if (!uName) {
+                $.messager.show({
+                    title: '提示',
+                    msg: '用户名不能为空',
+                    timeout: 1000,
+                    showType: 'slide'
+                });
+                return false;
+            }
+            if (!upwd) {
+                $.messager.show({
+                    title: '提示',
+                    msg: '密码不能为空',
+                    timeout: 1000,
+                    showType: 'slide'
+                });
+                return false;
+            }
+            var base64 = new Base64();
+            $('#loginFrm').find('#password').val(base64.encode(upwd));
+        },
+        success: function (data) {
+            var result = JSON.parse(data);
+            if(result.success) {
+                window.location.href=rootPath+'/home';
+            } else {
+                $.messager.show({
+                    title:'提示',
+                    msg:result.message,
+                    timeout:1000,
+                    showType:'slide'
+                });
+                $('#loginFrm').find('#userName').val("");
+                $('#loginFrm').find('#password').val("");
+            }
+        }
     });
 
-    $('#cc').calendar({
-        current: new Date()
+    $('#loginFrm').find('#loginBtn').on('click', function(){
+        $('#loginFrm').form('submit');
     });
-
-    $('#combox').combobox({
-        url: 'data/combobox_data.json',
-        valueField: 'id',
-        textField: 'text',
-        required: true
-    });
-
-    $('#dg').datagrid({
-        url: 'data/datagrid_data.json',
-        columns: [[{
-            field: 'code',
-            title: 'Code'
-        }, {
-            field: 'name',
-            title: 'Name'
-        }, {
-            field: 'price',
-            title: 'Price'
-        }]],
-        pagination: true,
-        singleSelect: true
-    });
-
-    $.messager.alert('警告', '警告消息');
-
-    $('#dd').dialog({
-        title: 'My Dialog',
-        width: 400,
-        height: 200,
-        closed: false,
-        cache: false,
-        href: 'get_content.php',
-        modal: true
-    });
-
-    $('#win').window({
-        width: 600,
-        height: 400,
-        modal: true
-    });
-
-    $('#nn').numberbox({
-        min: 10,
-        precision: 2
-    });
-})
+});
