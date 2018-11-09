@@ -7,12 +7,12 @@ import com.xa.dz.ims.mapper.UserMapper;
 import com.xa.dz.ims.model.User;
 import com.xa.dz.ims.model.UserExample;
 import com.xa.dz.ims.service.UserService;
+import com.xa.dz.ims.utils.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +34,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     PageHelper pageHelper;
 
+    @Autowired
+    Base64 base64;
+
     @Override
     public JSONObject login(String userName, String password) {
         JSONObject object = new JSONObject();
@@ -47,7 +50,8 @@ public class UserServiceImpl implements UserService {
                 logger.debug("用户[{}]登录失败，原因[用户名错误]", userName);
             } else {
                 User user = users.get(0);
-                if (password.equals(password)) {
+                String pwdTmp = base64.getFromBase64(user.getPassword());
+                if (password.equals(pwdTmp)) {
                     object.put("success", true);
                 } else {
                     object.put("success", false);

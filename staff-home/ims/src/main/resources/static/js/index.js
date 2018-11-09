@@ -36,6 +36,8 @@ $(function () {
                     timeout:1000,
                     showType:'slide'
                 });
+                $('#loginFrm').find('#userName').val("");
+                $('#loginFrm').find('#password').val("");
             }
         }
     });

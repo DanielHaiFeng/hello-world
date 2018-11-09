@@ -3,6 +3,7 @@ package com.xa.dz.ims.filter;
 import com.alibaba.fastjson.JSONObject;
 import com.xa.dz.ims.service.UserService;
 import com.xa.dz.ims.service.impl.UserServiceImpl;
+import org.apache.commons.lang.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
@@ -14,7 +15,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Base64;
+
+import com.xa.dz.ims.utils.Base64;
 
 /**
  * @Author DangTing[dangting@boco.com.cn]
@@ -46,14 +48,15 @@ public class LoginFilter implements Filter {
         String uri = request.getRequestURI();
         Environment environment = wac.getEnvironment();
         String rootPath = environment.getProperty("server.context-path");
+        String sessionUserNameKey = environment.getProperty("session.username");
 
         logger.debug("访问的地址[{}]", uri);
 
         if (!isNeedFilter(uri, rootPath)) {
             chain.doFilter(req, rep);
         } else {
-            if (isLogin(request)) {
-                if (uri.equals(rootPath+"/index")) {
+            if (isLogin(request, sessionUserNameKey)) {
+                if (uri.equals(rootPath + "/index")) {
                     //如果访问的是登录页面，并且已经登录，转向到首页
                     //request.getRequestDispatcher("/home").forward(request, response);
                     response.sendRedirect(request.getContextPath() + "/home");
@@ -66,7 +69,7 @@ public class LoginFilter implements Filter {
                 if (requestType != null && "XMLHttpRequest".equals(requestType)) {
                     response.getWriter().write(this.NO_LOGIN);
                 } else {
-                    if (uri.equals(rootPath+"/index")) {
+                    if (uri.equals(rootPath + "/index")) {
                         chain.doFilter(req, rep);
                     } else {
                         response.sendRedirect(request.getContextPath() + "/index");
@@ -81,22 +84,29 @@ public class LoginFilter implements Filter {
 
     }
 
-    private boolean isLogin(HttpServletRequest request) {
+    private boolean isLogin(HttpServletRequest request, String sessionUserNameKey) {
         Cookie[] cookies = request.getCookies();
         UserService userService = wac.getBean(UserServiceImpl.class);
+        Base64 base64 = wac.getBean(Base64.class);
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 String cVal = cookie.getValue();
                 logger.debug("Cookie的key[{}] value[{}]", cookie.getName(), cVal);
-                String userPwd = new String(Base64.getDecoder().decode(cVal));
-                String[] userPwdTmp = userPwd.split("-");
+                String upVal = base64.getFromBase64(cVal);
+                if (!upVal.contains("-")) {
+                    continue;
+                }
+                String[] userPwdTmp = upVal.split("-");
                 String userName = userPwdTmp[0];
                 String password = userPwdTmp[1];
                 JSONObject object = userService.login(userName, password);
-                if(object.getBoolean("success")) {
-                    return true;
+                if (object.getBoolean("success")) {
+                    String sessionUserName = ObjectUtils.toString(request.getSession().getAttribute(sessionUserNameKey));
+                    if (sessionUserName.equals(userName)) {
+                        return true;
+                    }
                 } else {
-                    logger.error("用户["+userName+"]登录验证失败，原因[{}]", object.get("message"));
+                    logger.error("用户[" + userName + "]登录验证失败，原因[{}]", object.get("message"));
                 }
             }
         }

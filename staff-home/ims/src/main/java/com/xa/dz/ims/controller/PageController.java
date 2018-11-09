@@ -2,11 +2,12 @@ package com.xa.dz.ims.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.xa.dz.ims.service.UserService;
+import com.xa.dz.ims.utils.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Base64;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class PageController {
@@ -23,6 +24,12 @@ public class PageController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    Environment environment;
+
+    @Autowired
+    Base64 base64;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(HttpServletRequest request, HttpServletResponse response) {
@@ -36,7 +43,7 @@ public class PageController {
         logger.debug("登录");
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
-        String pwdTmp = new String(Base64.getDecoder().decode(password));
+        String pwdTmp = base64.getFromBase64(password);
         JSONObject object = userService.login(userName, pwdTmp);
         if(object.getBoolean("success")) {
             // 设置格式
@@ -46,15 +53,25 @@ public class PageController {
             response.setContentType("text/html;charset=utf-8");
             response.setCharacterEncoding("utf-8");
             // 创建Cookie
-            Cookie cookie = new Cookie("myJavaData", Base64.getEncoder().encodeToString((userName + "-" + password).getBytes()));
+            String userCookie = base64.getBase64(userName + "-" + pwdTmp);
+            Cookie cookie = new Cookie("myJavaData", userCookie);
             // 有效期,秒为单位
             cookie.setMaxAge(3600);
             // 设置cookie
             response.addCookie(cookie);
+
+            HttpSession session = request.getSession();
+            session.setAttribute(environment.getProperty("session.username"), userName);
             return object;
         } else {
             return object;
         }
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+
+        return "index";
     }
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
