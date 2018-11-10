@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.xa.dz.ims.mapper.UserMapper" >
-  <resultMap id="BaseResultMap" type="com.xa.dz.ims.model.User" >
-    <id column="uid" property="uid" jdbcType="INTEGER" />
-    <result column="uname" property="uname" jdbcType="VARCHAR" />
-    <result column="upwd" property="upwd" jdbcType="VARCHAR" />
-    <result column="cellphone" property="cellphone" jdbcType="VARCHAR" />
-    <result column="address" property="address" jdbcType="VARCHAR" />
+<mapper namespace="com.xa.dz.ims.mapper.AuthorizeMapper" >
+  <resultMap id="BaseResultMap" type="com.xa.dz.ims.model.Authorize" >
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="mid" property="mid" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,15 +64,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    uid, uname, upwd, cellphone, address
+    uid, mid
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xa.dz.ims.model.UserExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xa.dz.ims.model.AuthorizeExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from user_table
+    from authorize_table
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -83,93 +80,49 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from user_table
-    where uid = #{uid,jdbcType=INTEGER}
-  </select>
-  <select id="selectAllUser" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from user_table
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from user_table
-    where uid = #{uid,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.xa.dz.ims.model.UserExample" >
-    delete from user_table
+  <delete id="deleteByExample" parameterType="com.xa.dz.ims.model.AuthorizeExample" >
+    delete from authorize_table
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.xa.dz.ims.model.User" >
-    insert into user_table (uid, uname, upwd, 
-      cellphone, address)
-    values (#{uid,jdbcType=INTEGER}, #{uname,jdbcType=VARCHAR}, #{upwd,jdbcType=VARCHAR}, 
-      #{cellphone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.xa.dz.ims.model.Authorize" >
+    insert into authorize_table (uid, mid)
+    values (#{uid,jdbcType=INTEGER}, #{mid,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.xa.dz.ims.model.User" >
-    insert into user_table
+  <insert id="insertSelective" parameterType="com.xa.dz.ims.model.Authorize" >
+    insert into authorize_table
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="uid != null" >
         uid,
       </if>
-      <if test="uname != null" >
-        uname,
-      </if>
-      <if test="upwd != null" >
-        upwd,
-      </if>
-      <if test="cellphone != null" >
-        cellphone,
-      </if>
-      <if test="address != null" >
-        address,
+      <if test="mid != null" >
+        mid,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="uid != null" >
         #{uid,jdbcType=INTEGER},
       </if>
-      <if test="uname != null" >
-        #{uname,jdbcType=VARCHAR},
-      </if>
-      <if test="upwd != null" >
-        #{upwd,jdbcType=VARCHAR},
-      </if>
-      <if test="cellphone != null" >
-        #{cellphone,jdbcType=VARCHAR},
-      </if>
-      <if test="address != null" >
-        #{address,jdbcType=VARCHAR},
+      <if test="mid != null" >
+        #{mid,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.xa.dz.ims.model.UserExample" resultType="java.lang.Integer" >
-    select count(*) from user_table
+  <select id="countByExample" parameterType="com.xa.dz.ims.model.AuthorizeExample" resultType="java.lang.Integer" >
+    select count(*) from authorize_table
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update user_table
+    update authorize_table
     <set >
       <if test="record.uid != null" >
         uid = #{record.uid,jdbcType=INTEGER},
       </if>
-      <if test="record.uname != null" >
-        uname = #{record.uname,jdbcType=VARCHAR},
-      </if>
-      <if test="record.upwd != null" >
-        upwd = #{record.upwd,jdbcType=VARCHAR},
-      </if>
-      <if test="record.cellphone != null" >
-        cellphone = #{record.cellphone,jdbcType=VARCHAR},
-      </if>
-      <if test="record.address != null" >
-        address = #{record.address,jdbcType=VARCHAR},
+      <if test="record.mid != null" >
+        mid = #{record.mid,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -177,40 +130,11 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update user_table
+    update authorize_table
     set uid = #{record.uid,jdbcType=INTEGER},
-      uname = #{record.uname,jdbcType=VARCHAR},
-      upwd = #{record.upwd,jdbcType=VARCHAR},
-      cellphone = #{record.cellphone,jdbcType=VARCHAR},
-      address = #{record.address,jdbcType=VARCHAR}
+      mid = #{record.mid,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.xa.dz.ims.model.User" >
-    update user_table
-    <set >
-      <if test="uname != null" >
-        uname = #{uname,jdbcType=VARCHAR},
-      </if>
-      <if test="upwd != null" >
-        upwd = #{upwd,jdbcType=VARCHAR},
-      </if>
-      <if test="cellphone != null" >
-        cellphone = #{cellphone,jdbcType=VARCHAR},
-      </if>
-      <if test="address != null" >
-        address = #{address,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where uid = #{uid,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.xa.dz.ims.model.User" >
-    update user_table
-    set uname = #{uname,jdbcType=VARCHAR},
-      upwd = #{upwd,jdbcType=VARCHAR},
-      cellphone = #{cellphone,jdbcType=VARCHAR},
-      address = #{address,jdbcType=VARCHAR}
-    where uid = #{uid,jdbcType=INTEGER}
   </update>
 </mapper>

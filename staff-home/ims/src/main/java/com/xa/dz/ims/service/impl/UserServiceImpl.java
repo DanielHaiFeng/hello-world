@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
         JSONObject object = new JSONObject();
         try {
             UserExample userExample = new UserExample();
-            userExample.createCriteria().andUserNameEqualTo(userName);
+            userExample.createCriteria().andUnameEqualTo(userName);
             List<User> users = userMapper.selectByExample(userExample);
             if (users.size() == 0) {
                 object.put("success", false);
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
                 logger.debug("用户[{}]登录失败，原因[用户名错误]", userName);
             } else {
                 User user = users.get(0);
-                String pwdTmp = base64.getFromBase64(user.getPassword());
+                String pwdTmp = base64.getFromBase64(user.getUpwd());
                 if (password.equals(pwdTmp)) {
                     object.put("success", true);
                 } else {
