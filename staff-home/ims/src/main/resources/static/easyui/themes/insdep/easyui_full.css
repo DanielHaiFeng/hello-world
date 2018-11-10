@@ -306,10 +306,10 @@
   border-top:none !important;
 }
 .accordion .accordion-header-selected .accordion-collapse {
-  background:url('images/accordion_arrows_white.png') no-repeat 0 0;
+  background:url('images/accordion_arrows.png') no-repeat 0 0;
 }
 .accordion .accordion-header-selected .accordion-expand {
-  background:url('images/accordion_arrows_white.png') no-repeat -22px 0;
+  background:url('images/accordion_arrows.png') no-repeat -22px 0;
 }
 .accordion .accordion-header-selected .panel-tool a:hover{ background-color: #3c97dc; }
 

@@ -28,6 +28,7 @@ $(function () {
         success: function (data) {
             var result = JSON.parse(data);
             if(result.success) {
+                window.localStorage.setItem('loginUser',$("[name='userName']").val());
                 window.location.href=rootPath+'/home';
             } else {
                 $.messager.show({
@@ -42,7 +43,15 @@ $(function () {
         }
     });
 
-    $('#loginFrm').find('#loginBtn').on('click', function(){
+    $('#loginFrm').find('#loginBtn').on('click', function () {
         $('#loginFrm').form('submit');
     });
+
+    $('#loginFrm').find('#password').on('keyup', function (event) {
+        if (event.keyCode == 13) {
+            $('#loginFrm').form('submit');
+        }
+    })
+
+    window.localStorage.removeItem('loginUser');
 });

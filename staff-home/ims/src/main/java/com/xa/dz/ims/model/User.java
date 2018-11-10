@@ -1,43 +1,54 @@
 package com.xa.dz.ims.model;
 
 public class User {
-    private Integer userId;
 
-    private String userName;
+    private Integer uid;
 
-    private String password;
+    private String uname;
 
-    private String phone;
+    private String upwd;
 
-    public Integer getUserId() {
-        return userId;
+    private String cellphone;
+
+    private String address;
+
+    public Integer getUid() {
+        return uid;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUid(Integer uid) {
+        this.uid = uid;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUname() {
+        return uname;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
+    public void setUname(String uname) {
+        this.uname = uname == null ? null : uname.trim();
     }
 
-    public String getPassword() {
-        return password;
+    public String getUpwd() {
+        return upwd;
     }
 
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+    public void setUpwd(String upwd) {
+        this.upwd = upwd == null ? null : upwd.trim();
     }
 
-    public String getPhone() {
-        return phone;
+    public String getCellphone() {
+        return cellphone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
+    public void setCellphone(String cellphone) {
+        this.cellphone = cellphone == null ? null : cellphone.trim();
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address == null ? null : address.trim();
     }
 }

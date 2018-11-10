@@ -1,6 +1,8 @@
 package com.xa.dz.ims.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.xa.dz.ims.model.Accordion;
+import com.xa.dz.ims.service.AccordionService;
 import com.xa.dz.ims.service.UserService;
 import com.xa.dz.ims.utils.Base64;
 import org.slf4j.Logger;
@@ -8,14 +10,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class PageController {
@@ -24,6 +26,9 @@ public class PageController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    AccordionService accordionService;
 
     @Autowired
     Environment environment;
@@ -70,7 +75,7 @@ public class PageController {
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest request, HttpServletResponse response) {
-
+        request.getSession().invalidate();
         return "index";
     }
 
@@ -78,5 +83,18 @@ public class PageController {
     public String home(HttpServletRequest request, HttpServletResponse response) {
         logger.debug("跳转到首页！");
         return "home";
+    }
+
+    @RequestMapping(value = "/getAccordion", method = RequestMethod.POST, consumes = {"application/json;charset=utf-8"})
+    @ResponseBody
+    public List<Accordion> getAccordion(@RequestBody Map<String, String> bodyMap) {
+        String userName = bodyMap.get("userName");
+        return accordionService.getAccordion(userName);
+    }
+
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public String user(HttpServletRequest request, HttpServletResponse response) {
+        logger.debug("跳转到用户管理页面！");
+        return "pages/user";
     }
 }
