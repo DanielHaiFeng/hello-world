@@ -97,7 +97,7 @@ $(function() {
 	});
 	
 	$("#utGrid").datagrid({
-		url : "/cms/getUsers",// 加载的URL
+		url : rootPath+'/getUsers',// 加载的URL
 		idField : "uid",
 		pagination : true,// 显示分页
 		pageSize : 5,// 分页大小
@@ -117,14 +117,17 @@ $(function() {
 			field : 'ck',
 			checkbox : true,
 			width : 10
+        }, {
+			field: 'loginname',
+			title: '登录名',
+			width: 100
 		}, {
-			field : 'uname',
-			title : '用户名',
-			width : 100,
-		},{
-			field : 'upwd',
-			title : '密码',
-			width : 100,
+			field: 'upwd',
+			hidden: true
+		}, {
+			field: 'name',
+			title: '姓名',
+			width: 100,
 		}, {
 			field : 'cellphone',
 			title : '手机号',
@@ -133,7 +136,11 @@ $(function() {
 			field : 'address',
 			title : '地址',
 			width : 100
-		} ] ],
+		}, {
+			field: 'remark',
+			title: '备注',
+			width: 100
+		}]],
 		toolbar : '#userToolBar',
 		queryParams : {
 		}

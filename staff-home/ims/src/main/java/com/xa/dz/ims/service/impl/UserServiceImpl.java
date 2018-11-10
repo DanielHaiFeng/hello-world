@@ -8,6 +8,7 @@ import com.xa.dz.ims.model.User;
 import com.xa.dz.ims.model.UserExample;
 import com.xa.dz.ims.service.UserService;
 import com.xa.dz.ims.utils.Base64;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,12 +69,36 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<String, Object> pageUser(int pageNum, int pageSize) {
-        logger.debug("用户列表分页");
+    public Map<String, Object> pageUser(int pageNum, int pageSize, User user) {
+        logger.debug("用户列表分页 第[{}]页 每页[{}]行", pageNum, pageSize);
+        UserExample userExample = new UserExample();
+        initPageUserExample(userExample, user);
         Page page = pageHelper.startPage(pageNum, pageSize, true);
         Map<String, Object> map = new HashMap<>();
-        map.put("rows", userMapper.selectAllUser());
+        map.put("rows", userMapper.selectByExample(userExample));
         map.put("total", page.getTotal());
         return map;
+    }
+
+    private void initPageUserExample(UserExample userExample, User user) {
+        if (null == user) {
+            return;
+        }
+        UserExample.Criteria criteria = userExample.createCriteria();
+        if (StringUtils.isNotBlank(user.getLoginname())) {
+            criteria.andLoginnameLike(user.getLoginname());
+        }
+        if (StringUtils.isNotBlank(user.getName())) {
+            criteria.andNameLike(user.getName());
+        }
+        if (StringUtils.isNotBlank(user.getCellphone())) {
+            criteria.andCellphoneLike(user.getCellphone());
+        }
+        if (StringUtils.isNotBlank(user.getAddress())) {
+            criteria.andAddressLike(user.getAddress());
+        }
+        if (StringUtils.isNotBlank(user.getRemark())) {
+            criteria.andRemarkLike(user.getRemark());
+        }
     }
 }
