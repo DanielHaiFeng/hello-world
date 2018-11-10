@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,6 +81,34 @@ public class UserServiceImpl implements UserService {
         return map;
     }
 
+    @Override
+    public JSONObject createUser(HttpServletRequest request) {
+        JSONObject object = new JSONObject();
+        try{
+            User user = initCreateUser(request);
+            UserExample userExample = new UserExample();
+            userExample.createCriteria().andLoginnameEqualTo(user.getLoginname());
+            if(userMapper.selectByExample(userExample).size()>0){
+                object.put("success", false);
+                object.put("message", "登录名已占用");
+            } else {
+                int result = userMapper.insert(user);
+                if (result == 1) {
+                    object.put("success", true);
+                    object.put("message", "添加成功");
+                } else {
+                    object.put("success", false);
+                    object.put("message", "添加失败");
+                }
+            }
+        }catch (Exception e) {
+            logger.error("创建用户异常:", e);
+            object.put("success", false);
+            object.put("message", "创建用户异常" + e.getMessage());
+        }
+        return object;
+    }
+
     private void initPageUserExample(UserExample userExample, User user) {
         if (null == user) {
             return;
@@ -100,5 +129,21 @@ public class UserServiceImpl implements UserService {
         if (StringUtils.isNotBlank(user.getRemark())) {
             criteria.andRemarkLike(user.getRemark());
         }
+    }
+
+    private User initCreateUser(HttpServletRequest request) {
+        String loginname = request.getParameter("loginname");
+        String name = request.getParameter("name");
+        String cellphone = request.getParameter("cellphone");
+        String address = request.getParameter("address");
+        String remark = request.getParameter("remark");
+        User user = new User();
+        user.setLoginname(loginname);
+        user.setName(name);
+        user.setCellphone(cellphone);
+        user.setAddress(address);
+        user.setUpwd(base64.getBase64("123456"));
+        user.setRemark(remark);
+        return user;
     }
 }

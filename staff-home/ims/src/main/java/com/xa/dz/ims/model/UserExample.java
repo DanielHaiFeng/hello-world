@@ -206,12 +206,12 @@ public class UserExample {
         }
 
         public Criteria andLoginnameLike(String value) {
-            addCriterion("loginName like", value, "loginname");
+            addCriterion("loginName like", "%" + value + "%", "loginname");
             return (Criteria) this;
         }
 
         public Criteria andLoginnameNotLike(String value) {
-            addCriterion("loginName not like", value, "loginname");
+            addCriterion("loginName not like", "%" + value + "%", "loginname");
             return (Criteria) this;
         }
 
@@ -276,12 +276,12 @@ public class UserExample {
         }
 
         public Criteria andUpwdLike(String value) {
-            addCriterion("upwd like", value, "upwd");
+            addCriterion("upwd like", "%" + value + "%", "upwd");
             return (Criteria) this;
         }
 
         public Criteria andUpwdNotLike(String value) {
-            addCriterion("upwd not like", value, "upwd");
+            addCriterion("upwd not like", "%" + value + "%", "upwd");
             return (Criteria) this;
         }
 
@@ -346,12 +346,12 @@ public class UserExample {
         }
 
         public Criteria andCellphoneLike(String value) {
-            addCriterion("cellphone like", value, "cellphone");
+            addCriterion("cellphone like", "%" + value + "%", "cellphone");
             return (Criteria) this;
         }
 
         public Criteria andCellphoneNotLike(String value) {
-            addCriterion("cellphone not like", value, "cellphone");
+            addCriterion("cellphone not like", "%" + value + "%", "cellphone");
             return (Criteria) this;
         }
 
@@ -416,12 +416,12 @@ public class UserExample {
         }
 
         public Criteria andAddressLike(String value) {
-            addCriterion("address like", value, "address");
+            addCriterion("address like", "%" + value + "%", "address");
             return (Criteria) this;
         }
 
         public Criteria andAddressNotLike(String value) {
-            addCriterion("address not like", value, "address");
+            addCriterion("address not like", "%" + value + "%", "address");
             return (Criteria) this;
         }
 
@@ -486,12 +486,12 @@ public class UserExample {
         }
 
         public Criteria andNameLike(String value) {
-            addCriterion("name like", value, "name");
+            addCriterion("name like", "%" + value + "%", "name");
             return (Criteria) this;
         }
 
         public Criteria andNameNotLike(String value) {
-            addCriterion("name not like", value, "name");
+            addCriterion("name not like", "%" + value + "%", "name");
             return (Criteria) this;
         }
 
@@ -556,12 +556,12 @@ public class UserExample {
         }
 
         public Criteria andRemarkLike(String value) {
-            addCriterion("remark like", value, "remark");
+            addCriterion("remark like", "%" + value + "%", "remark");
             return (Criteria) this;
         }
 
         public Criteria andRemarkNotLike(String value) {
-            addCriterion("remark not like", value, "remark");
+            addCriterion("remark not like", "%" + value + "%", "remark");
             return (Criteria) this;
         }
 

@@ -104,4 +104,10 @@ public class PageController {
     public Map<String, Object> getUsers(String page, String rows, User user) {
         return userService.pageUser(Integer.parseInt(page), Integer.parseInt(rows), user);
     }
+
+    @RequestMapping(value = "/createUser", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONObject createUser(HttpServletRequest request, HttpServletResponse response) {
+        return userService.createUser(request);
+    }
 }

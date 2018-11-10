@@ -36,71 +36,35 @@
 			<div data-options="name:'remark'">备注</div>
 		</div>
 	</div>
-	<div id="aud" class="easyui-window" title="添加用户" style="width: 450px;height: 170px;"
-		collapsible="false" minimizable="false" maximizable="false" closed="true" resizable="false" modal="true">
-		<div class="easyui-layout" fit="true">
-			<form id="addUser" method="post">
-				<div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc;" align="center">
-					<table>
-						<tr>
-							<td>用户名</td>
-							<td><input id="newUn" name="uname" type="text" class="easyui-validatebox" data-options="required:true,validType:'length[0,25]'"/></td>
-							<td>手机号</td>
-							<td><input id="newUc" name="cellphone" type="text" class="easyui-validatebox" data-options="required:true,validType:'length[11,11]'"/></td>
-						</tr>
-						<tr>
-							<td>密码</td>
-							<td><input id="newUp" name="upwd" type="password" class="easyui-validatebox" data-options="required:true,validType:'length[8,120]'"/></td>
-							<td>确认密码</td>
-							<td><input id="newUrp" type="password" class="easyui-validatebox" required="required" validType="equals['#newUp']"/></td>
-						</tr>
-						<tr>
-							<td>地址</td>
-							<td><input id="newUa" name="address" type="text" class="easyui-validatebox" data-options="required:true,validType:'length[0,120]'"/></td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-						</tr>
-					</table>
-				</div>
-				<div region="south" border="false" style="text-align: right; height: 30px; line-height: 30px;">
-					<a id="asb" class="easyui-linkbutton" icon="icon-ok" onclick="saveUser();" href="javascript:void(0)">确定</a>
-					<a id="acb" class="easyui-linkbutton" icon="icon-cancel" onclick="caud();" href="javascript:void(0)">取消</a>
-				</div>
-			</form>
-		</div>
-	</div>
-	
-	<div id="eud" class="easyui-window" title="编辑用户" style="width: 450px;height: 170px;"
-		collapsible="false" minimizable="false" maximizable="false" closed="true" resizable="false" modal="true">
-		<div class="easyui-layout" fit="true">
-			<form id="editUser" method="post">
-				<input type="hidden" id="huid" name="uid"/>
-				<div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc;" align="center">
-					<table>
-						<tr>
-							<td>用户名</td>
-							<td><input id="eUn" name="uname" type="text" class="easyui-validatebox" data-options="required:true,validType:'length[0,25]'"/></td>
-							<td>手机号</td>
-							<td><input id="eUc" name="cellphone" type="text" class="easyui-validatebox" data-options="required:true,validType:'length[11,11]'"/></td>
-						</tr>
-						<tr>
-							<td>密码</td>
-							<td><input id="eUp" name="upwd" type="password" class="easyui-validatebox" data-options="required:true,validType:'length[8,120]'"/></td>
-							<td>确认密码</td>
-							<td><input id="eUrp" type="password" class="easyui-validatebox" required="required" validType="equals['#eUp']"/></td>
-						</tr>
-						<tr>
-							<td>地址</td>
-							<td><input id="eUa" name="address" type="text" class="easyui-validatebox" required="required" validType="length[0,120]"/></td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-						</tr>
-					</table>
-				</div>
-				<div region="south" border="false" style="text-align: right; height: 30px; line-height: 30px;">
-					<a id="esb" class="easyui-linkbutton" icon="icon-ok" onclick="saveEdit()" href="javascript:void(0)">确定</a>
-					<a id="ecb" class="easyui-linkbutton" icon="icon-cancel" onclick="ceud();" href="javascript:void(0)">取消</a>
-				</div>
+	<div id="userDialog" style="display: none;">
+		<div class="easyui-layout" fit="true" align="center">
+			<form id="userFrm" method="post">
+				<table>
+					<tr><td colspan="5">&nbsp;</td></tr>
+					<tr>
+						<td>用户名</td>
+						<td><input id="loginname" name="loginname" type="text" class="easyui-validatebox" data-options="required:true,validType:'length[6,25]'"/></td>
+						<td>
+							&nbsp;&nbsp;&nbsp;<input type="hidden" name="uid" id="uid"/>
+						</td>
+						<td>姓名</td>
+						<td><input id="name" name="name" type="text" class="easyui-validatebox" data-options="required:true,validType:'length[1,25]'"/></td>
+					</tr>
+					<tr><td colspan="5">&nbsp;</td></tr>
+					<tr>
+						<td>手机号</td>
+						<td><input id="cellphone" name="cellphone" type="text" class="easyui-validatebox" data-options="required:true,validType:'length[11,11]'"/></td>
+						<td>&nbsp;&nbsp;&nbsp;</td>
+						<td>地址</td>
+						<td><input id="address" name="address" type="text" class="easyui-validatebox" data-options="required:true,validType:'length[1,120]'"/></td>
+					</tr>
+					<tr><td colspan="5">&nbsp;</td></tr>
+					<tr>
+						<td>备注</td>
+						<td><input id="remark" name="remark" type="text" class="easyui-validatebox" data-options="validType:'length[0,120]'"/></td>
+						<td colspan="3"></td>
+					</tr>
+				</table>
 			</form>
 		</div>
 	</div>

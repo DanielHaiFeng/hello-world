@@ -106,7 +106,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.xa.dz.ims.model.User" >
+  <insert id="insert" parameterType="com.xa.dz.ims.model.User" useGeneratedKeys="true" keyProperty="uid">
     insert into user_table (uid, loginName, upwd, 
       cellphone, address, name, 
       remark)
