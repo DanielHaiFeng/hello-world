@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
         JSONObject object = new JSONObject();
         try {
             UserExample userExample = new UserExample();
-            userExample.createCriteria().andUnameEqualTo(userName);
+            userExample.createCriteria().andLoginnameEqualTo(userName);
             List<User> users = userMapper.selectByExample(userExample);
             if (users.size() == 0) {
                 object.put("success", false);
