@@ -1,6 +1,7 @@
 package com.xa.dz.ims.model;
 
 public class Menu {
+
     private Integer mid;
 
     private String mname;
@@ -12,6 +13,8 @@ public class Menu {
     private String url;
 
     private Integer pid;
+
+    private String checked;
 
     public Integer getMid() {
         return mid;
@@ -59,5 +62,13 @@ public class Menu {
 
     public void setPid(Integer pid) {
         this.pid = pid;
+    }
+
+    public String getChecked() {
+        return checked;
+    }
+
+    public void setChecked(String checked) {
+        this.checked = checked;
     }
 }

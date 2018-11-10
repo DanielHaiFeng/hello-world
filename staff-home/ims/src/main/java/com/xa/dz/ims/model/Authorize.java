@@ -1,6 +1,7 @@
 package com.xa.dz.ims.model;
 
 public class Authorize {
+
     private Integer uid;
 
     private Integer mid;

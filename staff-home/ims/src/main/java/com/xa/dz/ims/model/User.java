@@ -1,6 +1,7 @@
 package com.xa.dz.ims.model;
 
 public class User {
+
     private Integer uid;
 
     private String uname;

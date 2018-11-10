@@ -28,6 +28,7 @@ $(function () {
         success: function (data) {
             var result = JSON.parse(data);
             if(result.success) {
+                window.localStorage.setItem('loginUser',$("[name='userName']").val());
                 window.location.href=rootPath+'/home';
             } else {
                 $.messager.show({
@@ -51,4 +52,6 @@ $(function () {
             $('#loginFrm').form('submit');
         }
     })
+
+    window.localStorage.removeItem('loginUser');
 });

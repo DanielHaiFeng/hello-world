@@ -8,6 +8,7 @@
     <result column="mlevel" property="mlevel" jdbcType="INTEGER" />
     <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="checked" jdbcType="VARCHAR" property="checked"/>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -83,6 +84,10 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
+  </select>
+  <select id="getAuthorizeMenus" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select mt.*, if(midt.mid is null, 'false', 'true') checked from menu_table mt
+    left join (select mid from authorize_table aut where aut.uid = #{uid,jdbcType=INTEGER}) midt on mt.mid = midt.mid;
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 

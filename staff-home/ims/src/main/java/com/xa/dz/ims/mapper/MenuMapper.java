@@ -19,6 +19,8 @@ public interface MenuMapper {
 
     List<Menu> selectByExample(MenuExample example);
 
+    List<Menu> getAuthorizeMenus(Integer uid);
+
     Menu selectByPrimaryKey(Integer mid);
 
     int updateByExampleSelective(@Param("record") Menu record, @Param("example") MenuExample example);
