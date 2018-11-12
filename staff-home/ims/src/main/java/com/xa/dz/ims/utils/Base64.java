@@ -11,7 +11,7 @@ import java.io.UnsupportedEncodingException;
  * @Author DangTing[dangting@boco.com.cn]
  * @CreateDate 2018/11/9 18:19
  * @Description
- * @Copyright Copyright 2018/11/9 18:19 BOCO. All rights reserved
+ * @Copyright Copyright 2018/11/9 18:19 Daniel. All rights reserved
  */
 @Component
 public class Base64 {

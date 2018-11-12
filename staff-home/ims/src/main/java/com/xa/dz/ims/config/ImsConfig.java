@@ -10,7 +10,7 @@ import java.util.Properties;
  * @Author DangTing[dangting@boco.com.cn]
  * @CreateDate 2018/11/9 9:14
  * @Description
- * @Copyright Copyright 2018/11/9 9:14 BOCO. All rights reserved
+ * @Copyright Copyright 2018/11/9 9:14 Daniel. All rights reserved
  */
 @Configuration
 public class ImsConfig {
