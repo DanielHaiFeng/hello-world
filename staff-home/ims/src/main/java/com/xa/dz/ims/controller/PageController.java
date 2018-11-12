@@ -1,5 +1,6 @@
 package com.xa.dz.ims.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.xa.dz.ims.model.Accordion;
 import com.xa.dz.ims.model.User;
@@ -133,5 +134,17 @@ public class PageController {
     @ResponseBody
     public JSONObject savePersonInfo(HttpServletRequest request, HttpServletResponse response) {
         return userService.savePersonInfo(request);
+    }
+
+    @RequestMapping(value = "/menu", method = RequestMethod.GET)
+    public String menu(HttpServletRequest request, HttpServletResponse response) {
+        logger.debug("跳转到菜单管理页面！");
+        return "pages/menu";
+    }
+
+    @RequestMapping("/getMenuTree")
+    @ResponseBody
+    public JSONArray getMenuTree(@RequestParam Integer id) {
+        return userService.getMenuTree(id);
     }
 }
