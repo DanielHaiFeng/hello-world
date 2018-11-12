@@ -51,7 +51,6 @@ function initAccordion(menus) {
         var menulist ='';
         menulist +='<ul>';
         $.each(n.menus, function(j, o) {
-            debugger;
             if(o.visible){
                 menulist += '<li><div><a ref="'+o.menuid+'" href="#" rel="' + o.url + '" ><span class="icon '+o.icon+'" >&nbsp;</span><span class="nav">' + o.menuname + '</span></a></div></li> ';
             }

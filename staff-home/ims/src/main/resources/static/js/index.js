@@ -5,21 +5,11 @@ $(function () {
             var uName = $('#loginFrm').find('#userName').val();
             var upwd = $('#loginFrm').find('#password').val();
             if (!uName) {
-                $.messager.show({
-                    title: '提示',
-                    msg: '用户名不能为空',
-                    timeout: 1000,
-                    showType: 'slide'
-                });
+                showInfo('用户名不能为空');
                 return false;
             }
             if (!upwd) {
-                $.messager.show({
-                    title: '提示',
-                    msg: '密码不能为空',
-                    timeout: 1000,
-                    showType: 'slide'
-                });
+                showInfo('密码不能为空');
                 return false;
             }
             var base64 = new Base64();
@@ -31,12 +21,7 @@ $(function () {
                 window.localStorage.setItem('loginUser',$("[name='userName']").val());
                 window.location.href=rootPath+'/home';
             } else {
-                $.messager.show({
-                    title:'提示',
-                    msg:result.message,
-                    timeout:1000,
-                    showType:'slide'
-                });
+                showInfo(result.message);
                 $('#loginFrm').find('#userName').val("");
                 $('#loginFrm').find('#password').val("");
             }

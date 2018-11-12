@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.xa.dz.ims.model.User;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,4 +20,8 @@ public interface UserService {
     Map<String, Object> pageUser(int pageNum, int pageSize, User user);
 
     public JSONObject createUser(HttpServletRequest request);
+
+    public JSONObject editUser(HttpServletRequest request);
+
+    public JSONObject deleteUser(List<Integer> uids);
 }
