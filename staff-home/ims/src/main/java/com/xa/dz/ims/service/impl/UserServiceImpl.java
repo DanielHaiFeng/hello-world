@@ -159,6 +159,48 @@ public class UserServiceImpl implements UserService {
         return object;
     }
 
+    @Override
+    public JSONObject getPersonInfo(String loginName) {
+        JSONObject object = new JSONObject();
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andLoginnameEqualTo(loginName);
+        try {
+            List<User> users = userMapper.selectByExample(userExample);
+            if(users.size()==1){
+                object.put("success", true);
+                object.put("message", JSONObject.toJSONString(users.get(0)));
+            } else {
+                object.put("success", false);
+                object.put("message", "获取用户信息失败");
+            }
+        }catch (Exception e) {
+            logger.error("获取用户异常:", e);
+            object.put("success", false);
+            object.put("message", "获取用户异常" + e.getMessage());
+        }
+        return object;
+    }
+
+    @Override
+    public JSONObject savePersonInfo(HttpServletRequest request) {
+        JSONObject object = new JSONObject();
+        try{
+            User user = initSavePersonUser(request);
+            if (userMapper.updateByPrimaryKeySelective(user) == 1) {
+                object.put("success", true);
+                object.put("message", "保存成功");
+            } else {
+                object.put("success", false);
+                object.put("message", "保存失败");
+            }
+        }catch (Exception e) {
+            logger.error("保存用户信息异常:", e);
+            object.put("success", false);
+            object.put("message", "保存用户信息异常" + e.getMessage());
+        }
+        return object;
+    }
+
     private void initPageUserExample(UserExample userExample, User user) {
         if (null == user) {
             return;
@@ -211,6 +253,21 @@ public class UserServiceImpl implements UserService {
         user.setCellphone(cellphone);
         user.setAddress(address);
         user.setRemark(remark);
+        return user;
+    }
+
+    private User initSavePersonUser(HttpServletRequest request) {
+        String uid = request.getParameter("uid");
+        String name = request.getParameter("name");
+        String cellphone = request.getParameter("cellphone");
+        String address = request.getParameter("address");
+        String pwd = request.getParameter("pwd");
+        User user = new User();
+        user.setUid(Integer.parseInt(uid));
+        user.setName(name);
+        user.setCellphone(cellphone);
+        user.setAddress(address);
+        user.setUpwd(pwd);
         return user;
     }
 }

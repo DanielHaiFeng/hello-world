@@ -24,4 +24,8 @@ public interface UserService {
     public JSONObject editUser(HttpServletRequest request);
 
     public JSONObject deleteUser(List<Integer> uids);
+
+    public JSONObject getPersonInfo(String loginName);
+
+    public JSONObject savePersonInfo(HttpServletRequest request);
 }

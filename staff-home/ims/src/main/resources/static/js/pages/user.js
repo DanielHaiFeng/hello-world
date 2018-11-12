@@ -137,16 +137,6 @@ function deleteUser() {
 }
 
 $(function() {
-	
-	$.extend($.fn.validatebox.defaults.rules, {    
-	    equals: {    
-	        validator: function(value,param){    
-	            return value == $(param[0]).val();    
-	        },    
-	        message: '密码不一致.'
-	    }    
-	});
-	
 	$("#utGrid").datagrid({
 		url : rootPath+'/getUsers',// 加载的URL
 		idField : "uid",

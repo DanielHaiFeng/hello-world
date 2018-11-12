@@ -122,4 +122,16 @@ public class PageController {
     public JSONObject deleteUser(@RequestBody List<Integer> uids) {
         return userService.deleteUser(uids);
     }
+
+    @RequestMapping(value = "/getPersonInfo", method = RequestMethod.POST, consumes = {"application/json;charset=utf-8"})
+    @ResponseBody
+    public JSONObject getPersonInfo(@RequestBody String loginName) {
+        return userService.getPersonInfo(loginName);
+    }
+
+    @RequestMapping(value = "/savePersonInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONObject savePersonInfo(HttpServletRequest request, HttpServletResponse response) {
+        return userService.savePersonInfo(request);
+    }
 }
