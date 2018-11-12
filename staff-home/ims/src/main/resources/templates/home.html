@@ -5,6 +5,7 @@
     <title>职工之间管理系统</title>
     <link rel="stylesheet" type="text/css" href="../static/easyui/themes/insdep/reset.min.css" th:href="@{easyui/themes/insdep/reset.min.css}" />
     <!--reset.min.css 根据实际情况引入，如果你有自己的初始化样式表可以不引入当前样式-->
+    <link rel="stylesheet" type="text/css" href="../static/css/default.css" th:href="@{css/default.css}"/>
     <link rel="stylesheet" type="text/css" href="../static/easyui/themes/icon.css" th:href="@{easyui/themes/icon.css}"/>
     <link rel="stylesheet" type="text/css" href="../static/easyui/themes/color.css" th:href="@{easyui/themes/color.css}"/>
     <link rel="stylesheet" type="text/css" href="../static/easyui/themes/insdep/easyui_full.css" th:href="@{easyui/themes/insdep/easyui_full.css}" />
@@ -19,9 +20,8 @@
 <div data-options="region:'north',border:false" style="height:40px;background:#B3DFDA;padding:10px">
     <div style="display: inline;float: left;">职工之家管理系统</div>
     <div style="display: inline;float: right;">
-        欢迎&nbsp;<span class="link-red" id="uname">admin</span>
-        &nbsp;<span class="link-red" id="udpw">个人信息</span>
-        &nbsp;<span class="link-red" id="qt">退出</span>
+        欢迎&nbsp;<span class="link-text" id="uname"></span>
+        &nbsp;<span class="link-text" id="qt">退出</span>
     </div>
 </div>
 <div data-options="region:'west',title:'导航'" style="width:150px;padding:0px;">
@@ -39,26 +39,43 @@
 </div>
 
 <!--修改密码窗口-->
-<div id="udpww" class="easyui-window" title="修改密码" collapsible="false"
-     minimizable="false" maximizable="false" closed="true" modal="true"
-     resizable="false" style="width: 320px; height: 160px; padding: 5px; background: #fafafa;">
-    <div class="easyui-layout" fit="true">
-        <div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc;">
-            <table cellpadding="3">
+<div id="userInfo" style="display: none;">
+    <div class="easyui-layout" fit="true" align="center">
+        <form id="uiFrm" method="post">
+            <table>
                 <tr>
-                    <td>新密码：</td>
-                    <td><input id="txtNewPass" type="Password"/></td>
+                    <td>姓名</td>
+                    <td>
+                        <input id="uid" name="uid" type="hidden"/>
+                        <input id="name" name="name" type="text" class="easyui-validatebox" data-options="required:true,validType:'length[1,25]'"/>
+                    </td>
                 </tr>
                 <tr>
-                    <td>确认密码：</td>
-                    <td><input id="txtRePass" type="Password"/></td>
+                    <td>手机号</td>
+                    <td>
+                        <input id="cellphone" name="cellphone" type="text" class="easyui-validatebox" data-options="required:true,validType:'length[11,11]'"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>地址</td>
+                    <td>
+                        <input id="address" name="address" type="text" class="easyui-validatebox" data-options="required:true,validType:'length[1,120]'"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>密码</td>
+                    <td>
+                        <input id="pwd" name="pwd" type="password" class="easyui-validatebox" data-options="required:true,validType:'length[6,120]'"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>确认密码</td>
+                    <td>
+                        <input id="confirmPwd" name="confirmPwd" type="password" class="easyui-validatebox" required="required" validType="equals['#pwd']"/>
+                    </td>
                 </tr>
             </table>
-        </div>
-        <div region="south" border="false" style="text-align: right; height: 30px; line-height: 30px;">
-            <a id="btnEp" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">确定</a>
-            <a id="btnCancel" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">取消</a>
-        </div>
+        </form>
     </div>
 </div>
 

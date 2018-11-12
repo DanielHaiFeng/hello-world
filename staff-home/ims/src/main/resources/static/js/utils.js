@@ -113,4 +113,14 @@ function Base64() {
         return string;
     }
 }
+
+function showInfo(message) {
+    $.messager.show({
+        title:'提示',
+        msg:message,
+        timeout:1000,
+        showType:'slide'
+    });
+}
+
 var rootPath = getRootPath();

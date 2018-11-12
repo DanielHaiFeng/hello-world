@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService {
             User user = initCreateUser(request);
             UserExample userExample = new UserExample();
             userExample.createCriteria().andLoginnameEqualTo(user.getLoginname());
-            if(userMapper.selectByExample(userExample).size()>0){
+            if (userMapper.selectByExample(userExample).size() > 0) {
                 object.put("success", false);
                 object.put("message", "登录名已占用");
             } else {
@@ -105,6 +105,98 @@ public class UserServiceImpl implements UserService {
             logger.error("创建用户异常:", e);
             object.put("success", false);
             object.put("message", "创建用户异常" + e.getMessage());
+        }
+        return object;
+    }
+
+    @Override
+    public JSONObject editUser(HttpServletRequest request) {
+        JSONObject object = new JSONObject();
+        try{
+            User user = initEditUser(request);
+            UserExample userExample = new UserExample();
+            userExample.createCriteria().andUidNotEqualTo(user.getUid()).andLoginnameEqualTo(user.getLoginname());
+            if (userMapper.selectByExample(userExample).size() > 0) {
+                object.put("success", false);
+                object.put("message", "登录名已占用");
+            } else {
+                int result = userMapper.updateByPrimaryKeySelective(user);
+                if (result == 1) {
+                    object.put("success", true);
+                    object.put("message", "编辑成功");
+                } else {
+                    object.put("success", false);
+                    object.put("message", "编辑失败");
+                }
+            }
+        }catch (Exception e) {
+            logger.error("编辑用户异常:", e);
+            object.put("success", false);
+            object.put("message", "编辑用户异常" + e.getMessage());
+        }
+        return object;
+    }
+
+    @Override
+    public JSONObject deleteUser(List<Integer> uids) {
+        JSONObject object = new JSONObject();
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andUidIn(uids);
+        try {
+            int result = userMapper.deleteByExample(userExample);
+            if (result == uids.size()) {
+                object.put("success", true);
+                object.put("message", "删除成功");
+            } else {
+                object.put("success", false);
+                object.put("message", "删除失败");
+            }
+        }catch (Exception e) {
+            logger.error("删除用户异常:", e);
+            object.put("success", false);
+            object.put("message", "删除用户异常" + e.getMessage());
+        }
+        return object;
+    }
+
+    @Override
+    public JSONObject getPersonInfo(String loginName) {
+        JSONObject object = new JSONObject();
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andLoginnameEqualTo(loginName);
+        try {
+            List<User> users = userMapper.selectByExample(userExample);
+            if(users.size()==1){
+                object.put("success", true);
+                object.put("message", JSONObject.toJSONString(users.get(0)));
+            } else {
+                object.put("success", false);
+                object.put("message", "获取用户信息失败");
+            }
+        }catch (Exception e) {
+            logger.error("获取用户异常:", e);
+            object.put("success", false);
+            object.put("message", "获取用户异常" + e.getMessage());
+        }
+        return object;
+    }
+
+    @Override
+    public JSONObject savePersonInfo(HttpServletRequest request) {
+        JSONObject object = new JSONObject();
+        try{
+            User user = initSavePersonUser(request);
+            if (userMapper.updateByPrimaryKeySelective(user) == 1) {
+                object.put("success", true);
+                object.put("message", "保存成功");
+            } else {
+                object.put("success", false);
+                object.put("message", "保存失败");
+            }
+        }catch (Exception e) {
+            logger.error("保存用户信息异常:", e);
+            object.put("success", false);
+            object.put("message", "保存用户信息异常" + e.getMessage());
         }
         return object;
     }
@@ -144,6 +236,38 @@ public class UserServiceImpl implements UserService {
         user.setAddress(address);
         user.setUpwd(base64.getBase64("123456"));
         user.setRemark(remark);
+        return user;
+    }
+
+    private User initEditUser(HttpServletRequest request) {
+        String uid = request.getParameter("uid");
+        String loginname = request.getParameter("loginname");
+        String name = request.getParameter("name");
+        String cellphone = request.getParameter("cellphone");
+        String address = request.getParameter("address");
+        String remark = request.getParameter("remark");
+        User user = new User();
+        user.setUid(Integer.parseInt(uid));
+        user.setLoginname(loginname);
+        user.setName(name);
+        user.setCellphone(cellphone);
+        user.setAddress(address);
+        user.setRemark(remark);
+        return user;
+    }
+
+    private User initSavePersonUser(HttpServletRequest request) {
+        String uid = request.getParameter("uid");
+        String name = request.getParameter("name");
+        String cellphone = request.getParameter("cellphone");
+        String address = request.getParameter("address");
+        String pwd = request.getParameter("pwd");
+        User user = new User();
+        user.setUid(Integer.parseInt(uid));
+        user.setName(name);
+        user.setCellphone(cellphone);
+        user.setAddress(address);
+        user.setUpwd(pwd);
         return user;
     }
 }

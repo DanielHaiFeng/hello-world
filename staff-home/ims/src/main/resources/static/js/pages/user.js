@@ -4,15 +4,24 @@ function userSearch(value,name){
 	$("#utGrid").datagrid('load', obj);
 }
 
-function caud() {
-	$("#aud").window("close");
-}
-
-function ceud(){
-	$("#eud").window("close");
-}
-
 function addUser(){
+    $('#userFrm').form("clear");
+    $('#userFrm').form({
+        url: rootPath + '/createUser',
+        onSubmit: function () {
+            if(!$('#userFrm').form('validate')){
+                $.messager.progress('close');
+                return false;
+            }
+        },
+        success: function (data) {
+            $.messager.progress('close');
+            var result = JSON.parse(data);
+            $('#userDialog').dialog('close');
+            $("#utGrid").datagrid("reload");
+            showInfo(result.message);
+        }
+    });
     $('#userDialog').dialog({
         title: '新增用户',
         width: 400,
@@ -23,6 +32,7 @@ function addUser(){
         buttons: [{
         	text: '保存',
             handler: function () {
+                $.messager.progress();
                 $('#userFrm').form('submit');
             }
 		},{
@@ -32,52 +42,67 @@ function addUser(){
             }
 		}]
     });
-    $('#userFrm').form({
-        url: rootPath + '/createUser',
-		onSubmit: function () {
-            if(!$('#userFrm').form('validate')){
-				return false;
-            }
-        },
-        success: function (data) {
-            var result = JSON.parse(data);
-            $('#userDialog').dialog('close');
-            $("#utGrid").datagrid("reload");
-            $.messager.alert("提示", result.message, "info");
-        }
-	});
-	$('#userFrm').form("clear");
 }
 
 function editUser() {
 	var rows = $('#utGrid').datagrid('getChecked');
 	if(rows.length){
 		if(rows.length!=1){
-			$.messager.alert("编辑用户", "编辑用户时只能选择一行！", "warning");
+            showInfo('编辑用户时只能选择一行');
 			$("#utGrid").datagrid("clearChecked");
 		}else{
-			$('#eud').form('clear');
-			$('#eud').form({
-				onLoadSuccess: function (data) {
-					$('#eUrp').val(data.upwd)
-	            }
-			});
-			$('#eud').form('load','/cms/getUser?uid='+rows[0].uid)
-			$('#eud').dialog('open');
+            $('#userFrm').form('clear');
+            $('#userDialog').dialog({
+                title: '编辑用户',
+                width: 400,
+                height: 200,
+                closed: false,
+                cache: false,
+                modal: true,
+                buttons: [{
+                    text: '保存',
+                    handler: function () {
+                        $.messager.progress();
+                        $('#userFrm').form('submit');
+                    }
+                },{
+                    text: '取消',
+                    handler: function () {
+                        $('#userDialog').dialog('close');
+                    }
+                }],
+                onOpen: function () {
+                    $('#userFrm #loginname').val(rows[0].loginname);
+                    $('#userFrm #loginname').validatebox({
+                        editable: false
+                    });
+                    $('#userFrm #uid').val(rows[0].uid);
+                    $('#userFrm #name').val(rows[0].name);
+                    $('#userFrm #cellphone').val(rows[0].cellphone);
+                    $('#userFrm #address').val(rows[0].address);
+                    $('#userFrm #remark').val(rows[0].remark);
+                }
+            });
+            $('#userFrm').form({
+                url: rootPath + '/editUser',
+                onSubmit: function () {
+                    if(!$('#userFrm').form('validate')){
+                        $.messager.progress('close');
+                        return false;
+                    }
+                },
+                success: function (data) {
+                    $.messager.progress('close');
+                    var result = JSON.parse(data);
+                    $('#userDialog').dialog('close');
+                    $("#utGrid").datagrid("reload");
+                    showInfo(result.message);
+                }
+            });
 		}
 	}else{
-		$.messager.alert("编辑用户", "请选择要编辑的用户！", "warning");
+        showInfo('请选择要编辑的用户');
 	}
-}
-
-function saveEdit(){
-	$.messager.progress();
-	$('#editUser').form('submit');
-}
-
-function saveUser(){
-	$.messager.progress();
-	$('#addUser').form('submit');
 }
 
 function deleteUser() {
@@ -90,44 +115,28 @@ function deleteUser() {
 		$.messager.confirm('系统提示', '您确定要删除选择的用户吗?', function(r) {
 			if (r) {
 				$.messager.progress();
-				$.ajax({
-					type:"post",
-					url : "/cms/deleteUser",
-					cache: false,
-					data : JSON.stringify(uids),
-					dataType:"json",      
-		            contentType:"application/json",
-					success : function(data) {
-						$.messager.progress('close');
-						if(data.result==0){
-							$.messager.alert("结果", data.msg, "info");
-							var parent$ = self.parent.$;      //找到父级DOM  
-				            parent$('#tabs').tabs('close','权限管理');
-							$("#utGrid").datagrid("reload");
-						}else{
-							$.messager.alert("结果", data.msg, "warning");
-						}
-						$("#utGrid").datagrid("clearSelections");
-					}
-				});
+                $.ajax({
+                    type: "POST",
+                    dataType: "JSON",
+                    contentType:'application/json;charset=UTF-8',//关键是要加上这行
+                    traditional:true,//这使json格式的字符不会被转码
+                    url : rootPath+'/deleteUser',
+                    cache: false,
+                    data: JSON.stringify(uids),
+                    success : function(data) {
+                        $.messager.progress('close');
+                        $("#utGrid").datagrid("reload");
+                        showInfo(data.message);
+                    }
+                });
 			}
 		});
 	} else {
-		$.messager.alert("删除用户", "请选择要删除的用户！", "warning");
+		showInfo('请选择要删除的用户');
 	}
 }
 
 $(function() {
-	
-	$.extend($.fn.validatebox.defaults.rules, {    
-	    equals: {    
-	        validator: function(value,param){    
-	            return value == $(param[0]).val();    
-	        },    
-	        message: '密码不一致.'
-	    }    
-	});
-	
 	$("#utGrid").datagrid({
 		url : rootPath+'/getUsers',// 加载的URL
 		idField : "uid",
@@ -146,7 +155,7 @@ $(function() {
 		loadMsg:"正在加载信息请稍候...",
 		columns : [ [ // 每个列具体内容
 		{
-			field : 'ck',
+			field : 'uid',
 			checkbox : true,
 			width : 10
         }, {
@@ -175,46 +184,6 @@ $(function() {
 		}]],
 		toolbar : '#userToolBar',
 		queryParams : {
-		}
-	});
-
-    $('#addUser').form({
-        url:rootPath+'/insertUser',
-        onSubmit: function(){
-            if(!$('#addUser').form('validate')){
-                $.messager.progress('close');
-                return false;
-            }
-        },
-        success:function(data){
-            $.messager.progress('close');
-            var rd = JSON.parse(data);
-            $.messager.alert("结果", rd.msg, "info");
-            if(rd.result!=1){
-                $("#utGrid").datagrid("reload");
-                var parent$ = self.parent.$;      //找到父级DOM
-                parent$('#tabs').tabs('close','权限管理');
-                $('#aud').window('close');
-            }
-        }
-    });
-	
-	$('#editUser').form({
-		url:'/cms/updateUser',
-		onSubmit: function(){   
-	        if(!$('#editUser').form('validate')){
-	        	$.messager.progress('close');
-	        	return false;
-	        }
-	    },
-	    success:function(data){
-	    	$.messager.progress('close');
-	    	var rd = JSON.parse(data);
-	    	$.messager.alert("结果", rd.msg, "info");
-	    	if(rd.result!=1){
-	    		$("#utGrid").datagrid("reload");
-		    	$('#eud').window('close');
-	    	}
 		}
 	});
 })
