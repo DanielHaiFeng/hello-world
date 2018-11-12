@@ -35,7 +35,7 @@ public class AccordionServiceImpl implements AccordionService {
     @Override
     public List<Accordion> getAccordion(String userName) {
         UserExample userExample = new UserExample();
-        userExample.createCriteria().andUnameEqualTo(userName);
+        userExample.createCriteria().andLoginnameEqualTo(userName);
         User ub = userMapper.selectByExample(userExample).get(0);
         List<Menu> mblist = menuMapper.getAuthorizeMenus(ub.getUid());
         Accordion ab = new Accordion();

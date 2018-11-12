@@ -13,8 +13,40 @@ function ceud(){
 }
 
 function addUser(){
-	$("#aud").window("open");
-	$('#addUser').form("clear");
+    $('#userDialog').dialog({
+        title: '新增用户',
+        width: 400,
+        height: 200,
+        closed: false,
+        cache: false,
+        modal: true,
+        buttons: [{
+        	text: '保存',
+            handler: function () {
+                $('#userFrm').form('submit');
+            }
+		},{
+        	text: '取消',
+            handler: function () {
+                $('#userDialog').dialog('close');
+            }
+		}]
+    });
+    $('#userFrm').form({
+        url: rootPath + '/createUser',
+		onSubmit: function () {
+            if(!$('#userFrm').form('validate')){
+				return false;
+            }
+        },
+        success: function (data) {
+            var result = JSON.parse(data);
+            $('#userDialog').dialog('close');
+            $("#utGrid").datagrid("reload");
+            $.messager.alert("提示", result.message, "info");
+        }
+	});
+	$('#userFrm').form("clear");
 }
 
 function editUser() {
@@ -97,7 +129,7 @@ $(function() {
 	});
 	
 	$("#utGrid").datagrid({
-		url : "/cms/getUsers",// 加载的URL
+		url : rootPath+'/getUsers',// 加载的URL
 		idField : "uid",
 		pagination : true,// 显示分页
 		pageSize : 5,// 分页大小
@@ -117,14 +149,17 @@ $(function() {
 			field : 'ck',
 			checkbox : true,
 			width : 10
+        }, {
+			field: 'loginname',
+			title: '登录名',
+			width: 100
 		}, {
-			field : 'uname',
-			title : '用户名',
-			width : 100,
-		},{
-			field : 'upwd',
-			title : '密码',
-			width : 100,
+			field: 'upwd',
+			hidden: true
+		}, {
+			field: 'name',
+			title: '姓名',
+			width: 100,
 		}, {
 			field : 'cellphone',
 			title : '手机号',
@@ -133,11 +168,36 @@ $(function() {
 			field : 'address',
 			title : '地址',
 			width : 100
-		} ] ],
+		}, {
+			field: 'remark',
+			title: '备注',
+			width: 100
+		}]],
 		toolbar : '#userToolBar',
 		queryParams : {
 		}
 	});
+
+    $('#addUser').form({
+        url:rootPath+'/insertUser',
+        onSubmit: function(){
+            if(!$('#addUser').form('validate')){
+                $.messager.progress('close');
+                return false;
+            }
+        },
+        success:function(data){
+            $.messager.progress('close');
+            var rd = JSON.parse(data);
+            $.messager.alert("结果", rd.msg, "info");
+            if(rd.result!=1){
+                $("#utGrid").datagrid("reload");
+                var parent$ = self.parent.$;      //找到父级DOM
+                parent$('#tabs').tabs('close','权限管理');
+                $('#aud').window('close');
+            }
+        }
+    });
 	
 	$('#editUser').form({
 		url:'/cms/updateUser',
@@ -154,27 +214,6 @@ $(function() {
 	    	if(rd.result!=1){
 	    		$("#utGrid").datagrid("reload");
 		    	$('#eud').window('close');
-	    	}
-		}
-	});
-	
-	$('#addUser').form({
-		url:'/cms/insertUser',
-		onSubmit: function(){   
-	        if(!$('#addUser').form('validate')){
-	        	$.messager.progress('close');
-	        	return false;
-	        }
-	    },
-	    success:function(data){
-	    	$.messager.progress('close');
-	    	var rd = JSON.parse(data);
-	    	$.messager.alert("结果", rd.msg, "info");
-	    	if(rd.result!=1){
-	    		$("#utGrid").datagrid("reload");
-	    		var parent$ = self.parent.$;      //找到父级DOM  
-	            parent$('#tabs').tabs('close','权限管理');
-		    	$('#aud').window('close');
 	    	}
 		}
 	});

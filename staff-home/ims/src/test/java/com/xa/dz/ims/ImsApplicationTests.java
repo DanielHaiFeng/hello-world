@@ -21,7 +21,7 @@ public class ImsApplicationTests {
 
     @Test
     public void testPageUser() {
-        logger.debug(JSONObject.toJSONString(userService.pageUser(1, 4)));
+        logger.debug(JSONObject.toJSONString(userService.pageUser(1, 4, null)));
     }
 
 }

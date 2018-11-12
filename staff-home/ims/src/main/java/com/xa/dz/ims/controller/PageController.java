@@ -2,6 +2,7 @@ package com.xa.dz.ims.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.xa.dz.ims.model.Accordion;
+import com.xa.dz.ims.model.User;
 import com.xa.dz.ims.service.AccordionService;
 import com.xa.dz.ims.service.UserService;
 import com.xa.dz.ims.utils.Base64;
@@ -96,5 +97,17 @@ public class PageController {
     public String user(HttpServletRequest request, HttpServletResponse response) {
         logger.debug("跳转到用户管理页面！");
         return "pages/user";
+    }
+
+    @RequestMapping("/getUsers")
+    @ResponseBody
+    public Map<String, Object> getUsers(String page, String rows, User user) {
+        return userService.pageUser(Integer.parseInt(page), Integer.parseInt(rows), user);
+    }
+
+    @RequestMapping(value = "/createUser", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONObject createUser(HttpServletRequest request, HttpServletResponse response) {
+        return userService.createUser(request);
     }
 }

@@ -3,10 +3,12 @@
 <mapper namespace="com.xa.dz.ims.mapper.UserMapper" >
   <resultMap id="BaseResultMap" type="com.xa.dz.ims.model.User" >
     <id column="uid" property="uid" jdbcType="INTEGER" />
-    <result column="uname" property="uname" jdbcType="VARCHAR" />
+    <result column="loginName" property="loginname" jdbcType="VARCHAR" />
     <result column="upwd" property="upwd" jdbcType="VARCHAR" />
     <result column="cellphone" property="cellphone" jdbcType="VARCHAR" />
     <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    uid, uname, upwd, cellphone, address
+    uid, loginName, upwd, cellphone, address, name, remark
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xa.dz.ims.model.UserExample" >
     select
@@ -104,11 +106,13 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.xa.dz.ims.model.User" >
-    insert into user_table (uid, uname, upwd, 
-      cellphone, address)
-    values (#{uid,jdbcType=INTEGER}, #{uname,jdbcType=VARCHAR}, #{upwd,jdbcType=VARCHAR}, 
-      #{cellphone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.xa.dz.ims.model.User" useGeneratedKeys="true" keyProperty="uid">
+    insert into user_table (uid, loginName, upwd, 
+      cellphone, address, name, 
+      remark)
+    values (#{uid,jdbcType=INTEGER}, #{loginname,jdbcType=VARCHAR}, #{upwd,jdbcType=VARCHAR}, 
+      #{cellphone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.xa.dz.ims.model.User" >
     insert into user_table
@@ -116,8 +120,8 @@
       <if test="uid != null" >
         uid,
       </if>
-      <if test="uname != null" >
-        uname,
+      <if test="loginname != null" >
+        loginName,
       </if>
       <if test="upwd != null" >
         upwd,
@@ -128,13 +132,19 @@
       <if test="address != null" >
         address,
       </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="uid != null" >
         #{uid,jdbcType=INTEGER},
       </if>
-      <if test="uname != null" >
-        #{uname,jdbcType=VARCHAR},
+      <if test="loginname != null" >
+        #{loginname,jdbcType=VARCHAR},
       </if>
       <if test="upwd != null" >
         #{upwd,jdbcType=VARCHAR},
@@ -144,6 +154,12 @@
       </if>
       <if test="address != null" >
         #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -159,8 +175,8 @@
       <if test="record.uid != null" >
         uid = #{record.uid,jdbcType=INTEGER},
       </if>
-      <if test="record.uname != null" >
-        uname = #{record.uname,jdbcType=VARCHAR},
+      <if test="record.loginname != null" >
+        loginName = #{record.loginname,jdbcType=VARCHAR},
       </if>
       <if test="record.upwd != null" >
         upwd = #{record.upwd,jdbcType=VARCHAR},
@@ -171,6 +187,12 @@
       <if test="record.address != null" >
         address = #{record.address,jdbcType=VARCHAR},
       </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -179,10 +201,12 @@
   <update id="updateByExample" parameterType="map" >
     update user_table
     set uid = #{record.uid,jdbcType=INTEGER},
-      uname = #{record.uname,jdbcType=VARCHAR},
+      loginName = #{record.loginname,jdbcType=VARCHAR},
       upwd = #{record.upwd,jdbcType=VARCHAR},
       cellphone = #{record.cellphone,jdbcType=VARCHAR},
-      address = #{record.address,jdbcType=VARCHAR}
+      address = #{record.address,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -190,8 +214,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.xa.dz.ims.model.User" >
     update user_table
     <set >
-      <if test="uname != null" >
-        uname = #{uname,jdbcType=VARCHAR},
+      <if test="loginname != null" >
+        loginName = #{loginname,jdbcType=VARCHAR},
       </if>
       <if test="upwd != null" >
         upwd = #{upwd,jdbcType=VARCHAR},
@@ -202,15 +226,23 @@
       <if test="address != null" >
         address = #{address,jdbcType=VARCHAR},
       </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
     </set>
     where uid = #{uid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.xa.dz.ims.model.User" >
     update user_table
-    set uname = #{uname,jdbcType=VARCHAR},
+    set loginName = #{loginname,jdbcType=VARCHAR},
       upwd = #{upwd,jdbcType=VARCHAR},
       cellphone = #{cellphone,jdbcType=VARCHAR},
-      address = #{address,jdbcType=VARCHAR}
+      address = #{address,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
     where uid = #{uid,jdbcType=INTEGER}
   </update>
 </mapper>

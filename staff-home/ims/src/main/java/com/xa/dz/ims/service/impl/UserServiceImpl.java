@@ -8,11 +8,13 @@ import com.xa.dz.ims.model.User;
 import com.xa.dz.ims.model.UserExample;
 import com.xa.dz.ims.service.UserService;
 import com.xa.dz.ims.utils.Base64;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +44,7 @@ public class UserServiceImpl implements UserService {
         JSONObject object = new JSONObject();
         try {
             UserExample userExample = new UserExample();
-            userExample.createCriteria().andUnameEqualTo(userName);
+            userExample.createCriteria().andLoginnameEqualTo(userName);
             List<User> users = userMapper.selectByExample(userExample);
             if (users.size() == 0) {
                 object.put("success", false);
@@ -68,12 +70,80 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<String, Object> pageUser(int pageNum, int pageSize) {
-        logger.debug("用户列表分页");
+    public Map<String, Object> pageUser(int pageNum, int pageSize, User user) {
+        logger.debug("用户列表分页 第[{}]页 每页[{}]行", pageNum, pageSize);
+        UserExample userExample = new UserExample();
+        initPageUserExample(userExample, user);
         Page page = pageHelper.startPage(pageNum, pageSize, true);
         Map<String, Object> map = new HashMap<>();
-        map.put("rows", userMapper.selectAllUser());
+        map.put("rows", userMapper.selectByExample(userExample));
         map.put("total", page.getTotal());
         return map;
+    }
+
+    @Override
+    public JSONObject createUser(HttpServletRequest request) {
+        JSONObject object = new JSONObject();
+        try{
+            User user = initCreateUser(request);
+            UserExample userExample = new UserExample();
+            userExample.createCriteria().andLoginnameEqualTo(user.getLoginname());
+            if(userMapper.selectByExample(userExample).size()>0){
+                object.put("success", false);
+                object.put("message", "登录名已占用");
+            } else {
+                int result = userMapper.insert(user);
+                if (result == 1) {
+                    object.put("success", true);
+                    object.put("message", "添加成功");
+                } else {
+                    object.put("success", false);
+                    object.put("message", "添加失败");
+                }
+            }
+        }catch (Exception e) {
+            logger.error("创建用户异常:", e);
+            object.put("success", false);
+            object.put("message", "创建用户异常" + e.getMessage());
+        }
+        return object;
+    }
+
+    private void initPageUserExample(UserExample userExample, User user) {
+        if (null == user) {
+            return;
+        }
+        UserExample.Criteria criteria = userExample.createCriteria();
+        if (StringUtils.isNotBlank(user.getLoginname())) {
+            criteria.andLoginnameLike(user.getLoginname());
+        }
+        if (StringUtils.isNotBlank(user.getName())) {
+            criteria.andNameLike(user.getName());
+        }
+        if (StringUtils.isNotBlank(user.getCellphone())) {
+            criteria.andCellphoneLike(user.getCellphone());
+        }
+        if (StringUtils.isNotBlank(user.getAddress())) {
+            criteria.andAddressLike(user.getAddress());
+        }
+        if (StringUtils.isNotBlank(user.getRemark())) {
+            criteria.andRemarkLike(user.getRemark());
+        }
+    }
+
+    private User initCreateUser(HttpServletRequest request) {
+        String loginname = request.getParameter("loginname");
+        String name = request.getParameter("name");
+        String cellphone = request.getParameter("cellphone");
+        String address = request.getParameter("address");
+        String remark = request.getParameter("remark");
+        User user = new User();
+        user.setLoginname(loginname);
+        user.setName(name);
+        user.setCellphone(cellphone);
+        user.setAddress(address);
+        user.setUpwd(base64.getBase64("123456"));
+        user.setRemark(remark);
+        return user;
     }
 }
