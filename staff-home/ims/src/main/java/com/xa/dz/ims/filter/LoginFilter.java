@@ -22,7 +22,7 @@ import com.xa.dz.ims.utils.Base64;
  * @Author DangTing[dangting@boco.com.cn]
  * @CreateDate 2018/11/9 14:07
  * @Description
- * @Copyright Copyright 2018/11/9 14:07 BOCO. All rights reserved
+ * @Copyright Copyright 2018/11/9 14:07 Daniel. All rights reserved
  */
 @WebFilter(filterName = "loginFilter", urlPatterns = {"/*"})
 public class LoginFilter implements Filter {

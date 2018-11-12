@@ -1,6 +1,5 @@
 package com.xa.dz.ims.service;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.xa.dz.ims.model.User;
 
@@ -12,7 +11,7 @@ import java.util.Map;
  * @Author DangTing[dangting@boco.com.cn]
  * @CreateDate 2018/11/9 9:04
  * @Description
- * @Copyright Copyright 2018/11/9 9:04 BOCO. All rights reserved
+ * @Copyright Copyright 2018/11/9 9:04 Daniel. All rights reserved
  */
 public interface UserService {
 
@@ -29,6 +28,4 @@ public interface UserService {
     public JSONObject getPersonInfo(String loginName);
 
     public JSONObject savePersonInfo(HttpServletRequest request);
-
-    public JSONArray getMenuTree(Integer pid);
 }

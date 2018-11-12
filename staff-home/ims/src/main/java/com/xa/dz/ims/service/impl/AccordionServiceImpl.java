@@ -19,7 +19,7 @@ import java.util.List;
  * @Author DangTing[dangting@boco.com.cn]
  * @CreateDate 2018/11/10 10:58
  * @Description
- * @Copyright Copyright 2018/11/10 10:58 BOCO. All rights reserved
+ * @Copyright Copyright 2018/11/10 10:58 Daniel. All rights reserved
  */
 @Service("accordionService")
 public class AccordionServiceImpl implements AccordionService {

@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.xa.dz.ims.model.Accordion;
 import com.xa.dz.ims.model.User;
 import com.xa.dz.ims.service.AccordionService;
+import com.xa.dz.ims.service.MenuService;
 import com.xa.dz.ims.service.UserService;
 import com.xa.dz.ims.utils.Base64;
 import org.slf4j.Logger;
@@ -28,6 +29,9 @@ public class PageController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    MenuService menuService;
 
     @Autowired
     AccordionService accordionService;
@@ -145,6 +149,12 @@ public class PageController {
     @RequestMapping("/getMenuTree")
     @ResponseBody
     public JSONArray getMenuTree(@RequestParam Integer id) {
-        return userService.getMenuTree(id);
+        return menuService.getMenuTree(id);
+    }
+
+    @RequestMapping("/getMenuList")
+    @ResponseBody
+    public Map<String, Object> getMenuList(String page, String rows, String mid) {
+        return menuService.pageMenu(Integer.parseInt(page), Integer.parseInt(rows), Integer.parseInt(mid));
     }
 }

@@ -10,7 +10,7 @@ function deleteMenu() {
 				$.messager.progress();
 				$.ajax({
 					type:"post",
-					url : "/cms/deleteMenu",
+					url : rootPath+'/deleteMenu',
 					cache: false,
 					data : JSON.stringify(mids),
 					dataType:"json",      
@@ -59,7 +59,7 @@ function editMenu() {
 function getChildMenu(mid, text){
 	
 	$("#menuContGrid").datagrid({
-		url : "/cms/getMenuList",// 加载的URL
+		url : rootPath+'/getMenuList',// 加载的URL
 		idField : "mid",
 		pagination : true,// 显示分页
 		pageSize : 5,// 分页大小
@@ -76,7 +76,7 @@ function getChildMenu(mid, text){
 		loadMsg:"正在加载信息请稍候...",
 		columns : [ [ // 每个列具体内容
 		{
-			field : 'ck',
+			field : 'mid',
 			checkbox : true,
 			width : 10
 		}, {
@@ -85,8 +85,7 @@ function getChildMenu(mid, text){
 			width : 100,
 		},{
 			field : 'micon',
-			title : '菜单图标',
-			width : 100,
+			hidden:true
 		}, {
 			field : 'mlevel',
 			title : '菜单级别',
