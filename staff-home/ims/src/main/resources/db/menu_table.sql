@@ -37,6 +37,6 @@ INSERT INTO `menu_table` VALUES ('2', '员工管理', 'icon-ok', '1', null, '0')
 INSERT INTO `menu_table` VALUES ('3', '部门管理', 'icon-ok', '1', null, '0');
 INSERT INTO `menu_table` VALUES ('4', '财务管理', 'icon-ok', '1', null, '0');
 INSERT INTO `menu_table` VALUES ('5', '商城管理', 'icon-ok', '1', null, '0');
-INSERT INTO `menu_table` VALUES ('6', '用户管理', 'icon-ok', '2', 'pages/user.html', '1');
+INSERT INTO `menu_table` VALUES ('6', '用户管理', 'icon-ok', '2', '/user', '1');
 INSERT INTO `menu_table` VALUES ('7', '菜单管理', 'icon-ok', '2', 'pages/menu.html', '1');
 INSERT INTO `menu_table` VALUES ('8', '权限管理', 'icon-ok', '2', 'pages/authorize.html', '1');
