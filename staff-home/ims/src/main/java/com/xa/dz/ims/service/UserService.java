@@ -1,5 +1,6 @@
 package com.xa.dz.ims.service;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.xa.dz.ims.model.User;
 
@@ -28,4 +29,6 @@ public interface UserService {
     public JSONObject getPersonInfo(String loginName);
 
     public JSONObject savePersonInfo(HttpServletRequest request);
+
+    public JSONArray getMenuTree(Integer pid);
 }
