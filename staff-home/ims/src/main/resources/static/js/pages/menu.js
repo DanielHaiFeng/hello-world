@@ -8,35 +8,38 @@ function deleteMenu() {
 		$.messager.confirm('系统提示', '您确定要删除选择的菜单吗?', function(r) {
 			if (r) {
 				$.messager.progress();
-				$.ajax({
-					type:"post",
-					url : rootPath+'/deleteMenu',
-					cache: false,
-					data : JSON.stringify(mids),
-					dataType:"json",      
-		            contentType:"application/json",
-					success : function(data) {
-						$.messager.progress('close');
-						if(data.result==0){
-							$.messager.alert("结果", data.msg, "info");
-							var sn = $('#tt').tree('getSelected');
-							$("#menuContGrid").datagrid("load",{
-								mid:sn.id
-							});
-							$.each(mids, function(i, n){
-								var node = $('#tt').tree('find', n);
-								$('#tt').tree('remove', node.target);
-							});
-						}else{
-							$.messager.alert("结果", data.msg, "warning");
-						}
-						$("#menuContGrid").datagrid("clearChecked");
-					}
-				});
+                $.ajax({
+                    type: "POST",
+                    dataType: "JSON",
+                    contentType:'application/json;charset=UTF-8',//关键是要加上这行
+                    traditional:true,//这使json格式的字符不会被转码
+                    url : rootPath+'/deleteMenu',
+                    cache: false,
+                    data: JSON.stringify(mids),
+                    success : function(data) {
+                        $.messager.progress('close');
+                        showInfo(data.message);
+                        if (data.success) {
+                            var sn = $('#tt').tree('getSelected');
+                            $("#menuContGrid").datagrid("load", {
+                                mid: sn.id
+                            });
+                            $.each(mids, function (i, n) {
+                                var node = $('#tt').tree('find', n);
+                                $('#tt').tree('remove', node.target);
+                            });
+                            var userName = window.localStorage.getItem('loginUser');
+                            if('super'==userName){
+                            	window.top.location.reload();
+							}
+                        }
+                        $("#menuContGrid").datagrid("clearChecked");
+                    }
+                });
 			}
 		});
 	} else {
-		$.messager.alert("删除用户", "请选择要删除的菜单！", "warning");
+		showInfo("请选择要删除的菜单");
 	}
 }
 
@@ -99,10 +102,29 @@ function getChildMenu(mid, text){
 			text : '添加',
 			iconCls : 'icon-add',
 			handler : function() {
-				$('#addMenuDialog').dialog('open');
-				$('#addMenuFrm').form("clear");
-				var dd = $('#tt').tree('getSelected');
-				$('#apid').val(dd.id);
+                var dd = $('#tt').tree('getSelected');
+                $('#menuFrm').form("clear");
+                $('#menuDialog').dialog({
+                    title: '新增菜单',
+                    width: 220,
+                    height: 170,
+                    closed: false,
+                    cache: false,
+                    modal: true,
+                    buttons: [{
+                        text:'保存',
+                        handler:function(){
+                            $.messager.progress();
+                            $('#menuFrm').form('submit');
+                        }
+					},{
+                        text:'取消',
+                        handler:function(){
+                            $('#menuDialog').dialog('close');
+						}
+					}]
+                });
+                $('#apid').val(dd.id);
 				var nle = dd.attributes.mlevel + 1;
 				$('#newMl').val(nle);
 				if(nle<2){
@@ -116,7 +138,47 @@ function getChildMenu(mid, text){
 					    readonly: false
 					}); 
 				}
-			}
+                $('#menuFrm').form({
+					url:rootPath+'/createMenu',
+					onSubmit: function(){
+                        if(!$('#menuFrm').form('validate')){
+                            $.messager.progress('close');
+                            return false;
+                        }
+					},
+					success:function(data){
+                        $.messager.progress('close');
+                        var result = JSON.parse(data);
+                        debugger;
+                        var sn = $('#tt').tree('getSelected');
+                        $("#menuContGrid").datagrid("load", {
+                            'mid':sn.id
+                        });
+                        $('#menuDialog').dialog('close');
+                        var userName = window.localStorage.getItem('loginUser');
+                        if(result.success){
+                            showInfo(result.message)
+                        	if(userName=='super'){
+                                var obj = result.menuObj;
+                                $('#tt').tree('append', {
+                                    parent: sn.target,
+                                    data: [{
+                                        id: obj.id,
+                                        text: obj.text,
+                                        state: obj.state,
+                                        iconCls: obj.iconCls,
+                                        attributes: {
+                                            mlevel:obj.attributes.mlevel
+                                        }
+                                    }]
+                                });
+							}
+                        } else {
+                        	showInfo(result.message)
+						}
+					}
+				});
+            }
 		}, '-', {
 			iconCls : 'icon-edit',
 			handler : function() {

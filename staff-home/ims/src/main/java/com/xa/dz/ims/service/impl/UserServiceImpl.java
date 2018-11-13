@@ -104,7 +104,7 @@ public class UserServiceImpl implements UserService {
         }catch (Exception e) {
             logger.error("创建用户异常:", e);
             object.put("success", false);
-            object.put("message", "创建用户异常" + e.getMessage());
+            object.put("message", "创建用户异常:" + e.getMessage());
         }
         return object;
     }
