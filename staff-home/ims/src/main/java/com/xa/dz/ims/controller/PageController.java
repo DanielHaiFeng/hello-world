@@ -81,6 +81,10 @@ public class PageController {
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest request, HttpServletResponse response) {
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            cookie.setMaxAge(0);//让cookie过期
+        }
         request.getSession().invalidate();
         return "index";
     }
@@ -156,5 +160,17 @@ public class PageController {
     @ResponseBody
     public Map<String, Object> getMenuList(String page, String rows, String mid) {
         return menuService.pageMenu(Integer.parseInt(page), Integer.parseInt(rows), Integer.parseInt(mid));
+    }
+
+    @RequestMapping(value = "/createMenu", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONObject createMenu(HttpServletRequest request, HttpServletResponse response) {
+        return menuService.createMenu(request);
+    }
+
+    @RequestMapping(value = "/deleteMenu", method = RequestMethod.POST, consumes = {"application/json;charset=utf-8"})
+    @ResponseBody
+    public JSONObject deleteMenu(@RequestBody List<Integer> mids) {
+        return menuService.deleteMenu(mids);
     }
 }

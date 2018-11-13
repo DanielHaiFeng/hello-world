@@ -105,7 +105,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.xa.dz.ims.model.Menu" >
+  <insert id="insert" parameterType="com.xa.dz.ims.model.Menu" useGeneratedKeys="true" keyProperty="mid">
     insert into menu_table (mid, mname, micon, 
       mlevel, url, pid)
     values (#{mid,jdbcType=INTEGER}, #{mname,jdbcType=VARCHAR}, #{micon,jdbcType=VARCHAR}, 
