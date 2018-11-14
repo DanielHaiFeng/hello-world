@@ -16,4 +16,6 @@ public interface MenuService {
     public JSONObject createMenu(HttpServletRequest request);
 
     public JSONObject deleteMenu(List<Integer> mids);
+
+    public JSONObject editMenu(HttpServletRequest request);
 }

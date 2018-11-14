@@ -173,4 +173,10 @@ public class PageController {
     public JSONObject deleteMenu(@RequestBody List<Integer> mids) {
         return menuService.deleteMenu(mids);
     }
+
+    @RequestMapping(value = "/editMenu", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONObject editMenu(HttpServletRequest request, HttpServletResponse response) {
+        return menuService.editMenu(request);
+    }
 }
