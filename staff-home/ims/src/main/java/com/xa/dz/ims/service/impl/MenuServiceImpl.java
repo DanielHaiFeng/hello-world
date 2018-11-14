@@ -107,7 +107,6 @@ public class MenuServiceImpl implements MenuService {
                     JSONObject ta = new JSONObject();
                     ta.put("mlevel", mb.getMlevel());
                     mt.put("attributes", ta);
-                    mt.put("menuObj", mt);
 
                     UserExample userExample = new UserExample();
                     userExample.createCriteria().andLoginnameEqualTo("super");
@@ -168,6 +167,34 @@ public class MenuServiceImpl implements MenuService {
         return object;
     }
 
+    @Override
+    public JSONObject editMenu(HttpServletRequest request) {
+        JSONObject object = new JSONObject();
+        try{
+            Menu menu = initEditMenu(request);
+            MenuExample menuExample = new MenuExample();
+            menuExample.createCriteria().andMidNotEqualTo(menu.getMid()).andMnameEqualTo(menu.getMname());
+            if (menuMapper.selectByExample(menuExample).size() > 0) {
+                object.put("success", false);
+                object.put("message", "菜单名已占用");
+            } else {
+                int result = menuMapper.updateByPrimaryKeySelective(menu);
+                if (result == 1) {
+                    object.put("success", true);
+                    object.put("message", "编辑成功");
+                } else {
+                    object.put("success", false);
+                    object.put("message", "编辑失败");
+                }
+            }
+        }catch (Exception e) {
+            logger.error("编辑菜单异常:", e);
+            object.put("success", false);
+            object.put("message", "编辑菜单异常:" + e.getMessage());
+        }
+        return object;
+    }
+
     public JSONObject assembleMenuTree(JSONObject mt, List<Menu> mblist) {
         if (mblist.size() != 0) {
             if (mt.get("children") == null) {
@@ -206,6 +233,19 @@ public class MenuServiceImpl implements MenuService {
         menu.setPid(Integer.parseInt(pid));
         menu.setMlevel(Integer.parseInt(mlevel));
         menu.setMname(mname);
+        menu.setUrl(url);
+        return menu;
+    }
+
+    private Menu initEditMenu(HttpServletRequest request) {
+        String mid = request.getParameter("mid");
+        String mname = request.getParameter("mname");
+        String mlevel = request.getParameter("mlevel");
+        String url = request.getParameter("url");
+        Menu menu = new Menu();
+        menu.setMid(Integer.parseInt(mid));
+        menu.setMname(mname);
+        menu.setMlevel(Integer.parseInt(mlevel));
         menu.setUrl(url);
         return menu;
     }

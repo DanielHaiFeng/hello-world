@@ -1,3 +1,142 @@
+function addMenu() {
+    var dd = $('#tt').tree('getSelected');
+    $('#menuFrm').form("clear");
+    $('#menuDialog').dialog({
+        title: '新增菜单',
+        width: 220,
+        height: 170,
+        closed: false,
+        cache: false,
+        modal: true,
+        buttons: [{
+            text:'保存',
+            handler:function(){
+                $.messager.progress();
+                $('#menuFrm').form('submit');
+            }
+        },{
+            text:'取消',
+            handler:function(){
+                $('#menuDialog').dialog('close');
+            }
+        }],
+		onOpen: function () {
+            $('#apid').val(dd.id);
+            var nle = dd.attributes.mlevel + 1;
+            $('#newMl').val(nle);
+            if(nle<2){
+                $('#newUrl').validatebox({
+                    required: false,
+                    readonly: true
+                });
+            }else{
+                $('#newUrl').validatebox({
+                    required: true,
+                    readonly: false
+                });
+            }
+        }
+    });
+    $('#menuFrm').form({
+        url:rootPath+'/createMenu',
+        onSubmit: function(){
+            if(!$('#menuFrm').form('validate')){
+                $.messager.progress('close');
+                return false;
+            }
+        },
+        success:function(data){
+            $.messager.progress('close');
+            var result = JSON.parse(data);
+            debugger;
+            var sn = $('#tt').tree('getSelected');
+            $("#menuContGrid").datagrid("load", {
+                'mid':sn.id
+            });
+            $('#menuDialog').dialog('close');
+            var userName = window.localStorage.getItem('loginUser');
+            showInfo(result.message);
+            if(result.success){
+                if(userName=='super'){
+                    var obj = result.menuObj;
+                    $('#tt').tree('append', {
+                        parent: sn.target,
+                        data: [{
+                            id: obj.id,
+                            text: obj.text,
+                            state: obj.state,
+                            iconCls: obj.iconCls,
+                            attributes: {
+                                mlevel:obj.attributes.mlevel
+                            }
+                        }]
+                    });
+                }
+            }
+        }
+    });
+}
+
+function editMenu() {
+    var rows = $('#menuContGrid').datagrid('getChecked');
+    if(rows.length){
+        if(rows.length!=1){
+            showInfo("编辑菜单时只能选择一行");
+            $("#menuContGrid").datagrid("clearChecked");
+        }else{
+            $('#menuFrm').form('clear');
+            $('#menuDialog').dialog({
+                title: '编辑菜单',
+                width: 220,
+                height: 170,
+                closed: false,
+                cache: false,
+                modal: true,
+                buttons: [{
+                    text:'保存',
+                    handler:function(){
+                        $.messager.progress();
+                        $('#menuFrm').form('submit');
+                    }
+                },{
+                    text:'取消',
+                    handler:function(){
+                        $('#menuDialog').dialog('close');
+                    }
+                }],
+                onOpen: function () {
+					$('#menuDialog').find('#mid').val(rows[0].mid);
+                    $('#menuDialog').find('#newMn').val(rows[0].mname);
+                    $('#menuDialog').find('#newMl').val(rows[0].mlevel);
+                    $('#menuDialog').find('#newMl').validatebox({
+                        required: false,
+                        readonly: true
+                    });
+                    $('#menuDialog').find('#newUrl').val(rows[0].url);
+                }
+            });
+            $('#menuFrm').form({
+                url: rootPath + '/editMenu',
+                onSubmit: function () {
+                    if(!$('#menuFrm').form('validate')){
+                        $.messager.progress('close');
+                        return false;
+                    }
+                },
+                success: function (data) {
+                    $.messager.progress('close');
+                    var result = JSON.parse(data);
+                    $('#menuDialog').dialog('close');
+                    $("#menuContGrid").datagrid("reload");
+                    showInfo(result.message);
+                }
+            });
+        }
+    }else{
+        showInfo("请选择要编辑的菜单");
+    }
+}
+
 function deleteMenu() {
 	var rows = $('#menuContGrid').datagrid('getChecked');
 	if(rows.length){
@@ -40,22 +179,6 @@ function deleteMenu() {
 		});
 	} else {
 		showInfo("请选择要删除的菜单");
-	}
-}
-
-function editMenu() {
-	var rows = $('#menuContGrid').datagrid('getChecked');
-	if(rows.length){
-		if(rows.length!=1){
-			$.messager.alert("编辑菜单", "编辑菜单时只能选择一行！", "warning");
-			$("#menuContGrid").datagrid("clearChecked");
-		}else{
-			$('#editMenuFrm').form('clear');
-			$('#editMenuFrm').form('load',rootPath+'/getMenu?mid='+rows[0].mid)
-			$('#editMenuDialog').dialog('open');
-		}
-	}else{
-		$.messager.alert("编辑菜单", "请选择要编辑的菜单！", "warning");
 	}
 }
 
@@ -102,82 +225,7 @@ function getChildMenu(mid, text){
 			text : '添加',
 			iconCls : 'icon-add',
 			handler : function() {
-                var dd = $('#tt').tree('getSelected');
-                $('#menuFrm').form("clear");
-                $('#menuDialog').dialog({
-                    title: '新增菜单',
-                    width: 220,
-                    height: 170,
-                    closed: false,
-                    cache: false,
-                    modal: true,
-                    buttons: [{
-                        text:'保存',
-                        handler:function(){
-                            $.messager.progress();
-                            $('#menuFrm').form('submit');
-                        }
-					},{
-                        text:'取消',
-                        handler:function(){
-                            $('#menuDialog').dialog('close');
-						}
-					}]
-                });
-                $('#apid').val(dd.id);
-				var nle = dd.attributes.mlevel + 1;
-				$('#newMl').val(nle);
-				if(nle<2){
-					$('#newUrl').validatebox({    
-					    required: false,
-					    readonly: true
-					}); 
-				}else{
-					$('#newUrl').validatebox({    
-					    required: true,
-					    readonly: false
-					}); 
-				}
-                $('#menuFrm').form({
-					url:rootPath+'/createMenu',
-					onSubmit: function(){
-                        if(!$('#menuFrm').form('validate')){
-                            $.messager.progress('close');
-                            return false;
-                        }
-					},
-					success:function(data){
-                        $.messager.progress('close');
-                        var result = JSON.parse(data);
-                        debugger;
-                        var sn = $('#tt').tree('getSelected');
-                        $("#menuContGrid").datagrid("load", {
-                            'mid':sn.id
-                        });
-                        $('#menuDialog').dialog('close');
-                        var userName = window.localStorage.getItem('loginUser');
-                        if(result.success){
-                            showInfo(result.message)
-                        	if(userName=='super'){
-                                var obj = result.menuObj;
-                                $('#tt').tree('append', {
-                                    parent: sn.target,
-                                    data: [{
-                                        id: obj.id,
-                                        text: obj.text,
-                                        state: obj.state,
-                                        iconCls: obj.iconCls,
-                                        attributes: {
-                                            mlevel:obj.attributes.mlevel
-                                        }
-                                    }]
-                                });
-							}
-                        } else {
-                        	showInfo(result.message)
-						}
-					}
-				});
+                addMenu();
             }
 		}, '-', {
 			iconCls : 'icon-edit',
