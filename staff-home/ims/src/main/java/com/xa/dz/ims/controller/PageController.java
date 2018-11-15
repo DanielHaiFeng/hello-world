@@ -179,4 +179,10 @@ public class PageController {
     public JSONObject editMenu(HttpServletRequest request, HttpServletResponse response) {
         return menuService.editMenu(request);
     }
+
+    @RequestMapping(value = "/authorize", method = RequestMethod.GET)
+    public String authorize(HttpServletRequest request, HttpServletResponse response) {
+        logger.debug("跳转到权限管理页面！");
+        return "pages/authorize";
+    }
 }

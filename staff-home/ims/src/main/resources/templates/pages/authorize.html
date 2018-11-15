@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" style="height: 100%;">
+<head>
+<meta charset="UTF-8" />
+<title>授权页面</title>
+	<link rel="stylesheet" type="text/css" href="../static/css/default.css" th:href="@{css/default.css}"/>
+	<link rel="stylesheet" type="text/css" href="../static/easyui/themes/insdep/reset.min.css" th:href="@{easyui/themes/insdep/reset.min.css}" />
+	<!--reset.min.css 根据实际情况引入，如果你有自己的初始化样式表可以不引入当前样式-->
+	<link rel="stylesheet" type="text/css" href="../static/easyui/themes/icon.css" th:href="@{easyui/themes/icon.css}"/>
+	<link rel="stylesheet" type="text/css" href="../static/easyui/themes/color.css" th:href="@{easyui/themes/color.css}"/>
+	<link rel="stylesheet" type="text/css" href="../static/easyui/themes/insdep/easyui_full.css" th:href="@{easyui/themes/insdep/easyui_full.css}" />
+	<script type="text/javascript" src="../static/easyui/jquery.min.js" th:src="@{easyui/jquery.min.js}"></script>
+	<script type="text/javascript" src="../static/easyui/jquery.easyui-1.5.1.min.js" th:src="@{easyui/jquery.easyui-1.5.1.min.js}"></script>
+	<script type="text/javascript" src="../static/easyui/themes/insdep/jquery.insdep-extend.min.js" th:src="@{easyui/themes/insdep/jquery.insdep-extend.min.js}"></script>
+	<script type="text/javascript" src="../static/js/utils.js" th:src="@{js/utils.js}"></script>
+	<script type="text/javascript" src="../static/js/pages/authorize.js" th:src="@{js/pages/authorize.js}"></script>
+</head>
+<body style="height: 100%;" class="easyui-layout">
+    <div data-options="region:'center'" >
+    	<table id="uaGrid">
+    	</table>
+    </div>
+    
+    <div id="uaToolBar">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="userAuthorize()">授权</a>
+		<br/>
+		<input class="easyui-searchbox" style="width:300px" data-options="searcher:uaSearch,prompt:'请输入查询内容',menu:'#mm'"></input>
+		<div id="mm" style="width:120px">
+			<div data-options="name:'loginname'">登录名</div>
+			<div data-options="name:'name'">姓名</div>
+			<div data-options="name:'cellphone'">手机号</div>
+			<div data-options="name:'address'">地址</div>
+		</div>
+	</div>
+	
+    <div id="uaDialog" style="display: none;">
+    	<form id="uaFrm" method="post">
+    		<input type="hidden" id="uid" name="uid" />
+    		<input type="hidden" id="mids" name="mids" />
+    		<div style="width:180px" >
+				<ul id="uatree"></ul>
+			</div>
+    	</form>
+    </div>
+	
+</body>
+</html>
