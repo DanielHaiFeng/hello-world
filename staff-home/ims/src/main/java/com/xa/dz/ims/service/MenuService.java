@@ -2,6 +2,7 @@ package com.xa.dz.ims.service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.xa.dz.ims.model.Menu;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -18,4 +19,5 @@ public interface MenuService {
     public JSONObject deleteMenu(List<Integer> mids);
 
     public JSONObject editMenu(HttpServletRequest request);
+
 }

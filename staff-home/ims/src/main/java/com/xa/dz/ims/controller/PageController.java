@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.xa.dz.ims.model.Accordion;
 import com.xa.dz.ims.model.User;
 import com.xa.dz.ims.service.AccordionService;
+import com.xa.dz.ims.service.AuthorizeService;
 import com.xa.dz.ims.service.MenuService;
 import com.xa.dz.ims.service.UserService;
 import com.xa.dz.ims.utils.Base64;
@@ -35,6 +36,9 @@ public class PageController {
 
     @Autowired
     AccordionService accordionService;
+
+    @Autowired
+    AuthorizeService authorizeService;
 
     @Autowired
     Environment environment;
@@ -184,5 +188,17 @@ public class PageController {
     public String authorize(HttpServletRequest request, HttpServletResponse response) {
         logger.debug("跳转到权限管理页面！");
         return "pages/authorize";
+    }
+
+    @RequestMapping("/getAuthorizeMenuTree")
+    @ResponseBody
+    public JSONArray getAuthorizeMenuTree(@RequestParam int uid) {
+        return authorizeService.getAuthorizeMenuTree(uid);
+    }
+
+    @RequestMapping("/authorizeMenu")
+    @ResponseBody
+    public JSONObject authorizeMenu(@RequestParam("uid") int uid,@RequestParam("mids") String mids){
+        return authorizeService.authorizeMenu(uid, mids);
     }
 }

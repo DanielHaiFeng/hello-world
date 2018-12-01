@@ -1,12 +1,16 @@
 package com.xa.dz.ims.config;
 
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.support.config.FastJsonConfig;
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
@@ -37,6 +41,20 @@ public class ImsConfig {
         properties.setProperty("dialect", "mysql");    //配置mysql数据库的方言
         pageHelper.setProperties(properties);
         return pageHelper;
+    }
+
+    @Bean
+    public HttpMessageConverters fastJsonHttpMessageConverters(){
+        //1.需要定义一个Convert转换消息的对象
+        FastJsonHttpMessageConverter fastConverter=new FastJsonHttpMessageConverter();
+        //2.添加fastjson的配置信息，比如是否要格式化返回的json数据
+        FastJsonConfig fastJsonConfig=new FastJsonConfig();
+        fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);
+        //3.在convert中添加配置信息
+        fastConverter.setFastJsonConfig(fastJsonConfig);
+
+        HttpMessageConverter<?> converter=fastConverter;
+        return new HttpMessageConverters(converter);
     }
 
     @Bean
