@@ -2,13 +2,13 @@ function userAuthorize() {
 	var rows = $('#uaGrid').datagrid('getChecked');
 	if (rows.length) {
 		if (rows.length != 1) {
-			$.messager.alert("用户授权", "授权时只能选择一个用户！", "warning");
+			showInfo("授权时只能选择一个用户！");
 			$("#uaGrid").datagrid("clearChecked");
 		} else {
 			var uname = rows[0].uname;
 			$('#uatree').tree({
 				checkbox : true,
-				url : '/cms/getAuthorizeMenuTree',
+				url : rootPath + '/getAuthorizeMenuTree',
 				queryParams : {
 					'uid' : rows[0].uid
 				},
@@ -17,46 +17,51 @@ function userAuthorize() {
 				},
 				onBeforeCheck : function(node, checked) {
 					if (uname != 'super') {
-						if(node.text=='权限管理'){
+						if(node.text=='权限管理' && checked){
 							$('#uatree').tree('uncheck',node.target);
-							$.messager.alert("用户授权", "只有super用户才能被授予[权限管理]菜单权限！", "warning");
+							showInfo("只有super用户才能被授予[权限管理]菜单权限！");
 							return false;
 						}
-					}
-				},
-				onCheck : function(node, checked){
-					if(uname == 'super'){
-						$('#uatree').tree('check',node.target);
 					}
 				}
 			});
             $('#uaDialog').dialog({
+                title: '菜单授权',
+                width: 200,
+                height: 300,
+                closed: false,
+                cache: false,
+                modal: true,
                 buttons : [ {
                     text : '授权',
                     handler : function() {
                         $.messager.progress();
                         $('#uaFrm').form('submit');
                     },
-                    iconCls : 'icon-save'
                 }, {
                     text : '取消',
                     handler : function() {
                         $('#uaDialog').dialog('close');
                     },
-                    iconCls : 'icon-cancel'
                 } ]
             });
 
             $('#uaFrm').form({
-                url : '/cms/authorizeMenu',
+                url : rootPath + '/authorizeMenu',
                 onSubmit : function() {
                     var nodes = $('#uatree').tree('getChecked');
                     if (!nodes.length) {
-                        $.messager.alert("用户授权", "请选择要授权的菜单！", "warning");
+                        $.messager.progress('close');
+                    	showInfo("请选择要授权的菜单！");
                         return false;
                     } else {
                         var mids = new Array();
                         for (var i = 0; i < nodes.length; i++) {
+                        	if(uname!='super' && nodes[i].text=='权限管理'){
+                                $.messager.progress('close');
+                        		showInfo('只有super用户才能被授予[权限管理]菜单权限！');
+                        		return false;
+							}
                             mids.push(nodes[i].id);
                         }
                         $('#uaFrm #mids').val(mids.join());
@@ -65,7 +70,7 @@ function userAuthorize() {
                 success : function(data) {
                     $.messager.progress('close');
                     var rd = JSON.parse(data);
-                    $.messager.alert("结果", rd.msg, "info");
+                    showInfo(rd.msg);
                     if (rd.result != 1) {
                         $('#uaFrm').form('clear');
                         $('#uaDialog').dialog('close');
@@ -74,7 +79,7 @@ function userAuthorize() {
             });
 		}
 	} else {
-		$.messager.alert("用户授权", "请选择要授权的用户！", "warning");
+		showInfo("请选择要授权的用户！")
 	}
 }
 
