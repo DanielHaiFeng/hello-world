@@ -1,0 +1,3 @@
+- example of jersey in spring-boot
+- with package configuration
+- with rest junit, a lot of example of rest
