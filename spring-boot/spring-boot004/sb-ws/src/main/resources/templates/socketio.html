@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>socket-io</title>
+    <script type="text/javascript" src="../static/easyui/jquery.min.js" th:src="@{easyui/jquery.min.js}"></script>
+    <script type="text/javascript" src="../static/js/socket.io.js" th:src="@{js/socket.io.js}"></script>
+    <style type="text/css">
+        body {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        #console {
+            height: 200px;
+            overflow: auto;
+        }
+
+        .username-msg {
+            color: orange;
+        }
+
+        .connect-msg {
+            color: green;
+        }
+
+        .disconnect-msg {
+            color: red;
+        }
+
+        .send-msg {
+            color: #888
+        }
+    </style>
+    <script type="text/javascript">
+        var socket = null;
+        function sendMessage() {
+            if (socket) {
+                var userName = $("#name").val()
+                var message = $('#msg').val();
+                if (!userName) {
+                    alert('用户名称不能为空！');
+                    return;
+                }
+                if (!message) {
+                    alert('消息不能为空！');
+                    return;
+                }
+                socket.emit('chatevent', {userName: userName, message: message});
+            } else {
+                alert('socket连接已断开，请先进行连接！');
+            }
+            $('#msg').val('');
+        }
+
+        function output(message) {
+            var currentTime = "<span class='time'>" + new Date() + "</span>";
+            var element = $("<div>" + currentTime + " " + message + "</div>");
+            $('#console').prepend(element);
+        }
+
+        function disConn() {
+            socket.disconnect();
+            $('#msg').val('');
+            $('#name').val('');
+        }
+
+        function connServer() {
+            $('#console').html('');
+
+            socket = io.connect('http://localhost:9092');
+
+            socket.on('connect', function () {
+                output('<span class="connect-msg">Client has connected to the server!</span>');
+            });
+
+            socket.on('chatevent', function (data) {
+                output('<span class="username-msg">' + data.userName + ':</span> ' + data.message);
+            });
+
+            socket.on('disconnect', function () {
+                output('<span class="disconnect-msg">The client has disconnected!</span>');
+                socket = null;
+                $('#connDisBtn').text('connect');
+                $('#connDisBtn').off("click");
+                $('#connDisBtn').on('click', function () {
+                    connServer();
+                })
+            });
+
+            $('#connDisBtn').text('disconnect');
+            $('#connDisBtn').off("click");
+            $('#connDisBtn').on('click', function () {
+                disConn();
+            })
+        }
+
+        $(document).ready(function(){
+            connServer();
+            $('#connDisBtn').on('click', function () {
+                disConn();
+            })
+        });
+    </script>
+</head>
+<body>
+<h1>Netty-socketio示例</h1>
+<br/>
+<div id="console" class="well">
+</div>
+<form class="well form-inline" onsubmit="return false;">
+    <input id="name" class="input-xlarge" type="text" placeholder="用户名称..."/>
+    <input id="msg" class="input-xlarge" type="text" placeholder="发送内容..."/>
+    <button id="sendBtn" type="button" onClick="sendMessage()" class="btn">send</button>
+    <button id="connDisBtn" type="button" class="btn">disconnect</button>
+</form>
+</body>
+</html>

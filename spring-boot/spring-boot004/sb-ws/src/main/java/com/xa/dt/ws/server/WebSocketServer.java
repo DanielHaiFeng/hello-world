@@ -9,12 +9,6 @@ import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.util.List;
 
-/**
- * @Author DangTing[dangting@boco.com.cn]
- * @CreateDate 2018/12/28 9:43
- * @Description
- * @Copyright Copyright 2018/12/28 9:43 BOCO. All rights reserved
- */
 @ServerEndpoint(value = "/websocket")
 @Component
 public class WebSocketServer {

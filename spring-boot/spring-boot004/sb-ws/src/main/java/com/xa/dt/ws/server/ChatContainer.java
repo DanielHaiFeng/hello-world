@@ -5,12 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-/**
- * @Author DangTing[dangting@boco.com.cn]
- * @CreateDate 2018/12/28 9:49
- * @Description
- * @Copyright Copyright 2018/12/28 9:49 BOCO. All rights reserved
- */
 public class ChatContainer {
 
     private static ChatContainer chatContainer;

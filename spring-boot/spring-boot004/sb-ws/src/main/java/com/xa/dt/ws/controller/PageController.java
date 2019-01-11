@@ -16,12 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
-/**
- * @Author DangTing[dangting@boco.com.cn]
- * @CreateDate 2018/12/28 10:35
- * @Description
- * @Copyright Copyright 2018/12/28 10:35 BOCO. All rights reserved
- */
 @Controller
 public class PageController {
 
@@ -53,5 +47,11 @@ public class PageController {
         map.put("rows", wsList);
         map.put("total", wsList.size());
         return map;
+    }
+
+    @RequestMapping(value = "/socketio", method = RequestMethod.GET)
+    public String socketio(HttpServletRequest request, HttpServletResponse response) {
+        logger.info("跳转到socketio页面");
+        return "socketio";
     }
 }
