@@ -15,6 +15,7 @@ public class ServiceBProvider {
     private String serviceName="service-A";
 
     public void init() {
+        //zookeeper服务器地址
         String severList = "120.131.2.119:30011";
         String rootPath = "/servers";
         ZkClient zk = new ZkClient(severList, 5000, 5000);
@@ -29,6 +30,7 @@ public class ServiceBProvider {
         String ip = "127.1.1.3";
         JSONObject object = new JSONObject();
         object.put("serviceAddr", "service-ip:456");
+        //创建永久节点并写入数据
         zk.createPersistent(rootPath + "/" + serviceName + "/" + ip, object);
         System.out.println("znode:" + rootPath + "/" + serviceName + "/" + ip + "创建完成");
     }
