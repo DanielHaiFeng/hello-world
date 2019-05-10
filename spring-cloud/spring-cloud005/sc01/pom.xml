@@ -16,6 +16,7 @@
         <module>service-hystrix</module>
         <module>service-provider</module>
         <module>service-zuul</module>
+        <module>java-base</module>
     </modules>
 
 </project>
