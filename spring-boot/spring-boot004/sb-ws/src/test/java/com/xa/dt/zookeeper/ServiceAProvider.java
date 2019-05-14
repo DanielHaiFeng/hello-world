@@ -33,7 +33,9 @@ public class ServiceAProvider {
         JSONObject object = new JSONObject();
         object.put("serviceAddr", "service-ip:123");
         //创建永久节点并写入数据
-        zk.createPersistent(rootPath + "/" + serviceName + "/" + ip, object);
+        if (!zk.exists(rootPath + "/" + serviceName + "/" + ip)) {
+            zk.createPersistent(rootPath + "/" + serviceName + "/" + ip, object);
+        }
         System.out.println("znode:" + rootPath + "/" + serviceName + "/" + ip + "创建完成");
     }
 
