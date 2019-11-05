@@ -8,5 +8,5 @@ package com.xa.dt.mode.strategy;
  */
 public interface IStrategy {
 
-    public void encrypt();
+    void encrypt();
 }
