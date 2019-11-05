@@ -1,4 +1,4 @@
-package com.xa.dt.mode.principle.lsp;
+package com.xa.dt.principle.lsp;
 
 /**
  * @author DangTing[dangting@boco.com.cn]
@@ -6,10 +6,7 @@ package com.xa.dt.mode.principle.lsp;
  * @version: 1.0
  * @description: TODO
  */
-public class Snake extends Spirit {
+public abstract class Spirit {
 
-    @Override
-    public void say() {
-
-    }
+    public abstract void say();
 }

@@ -1,4 +1,4 @@
-package com.xa.dt.mode.principle.isp;
+package com.xa.dt.principle.isp;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package com.xa.dt.mode.principle.oc;
+package com.xa.dt.principle.oc;
 
 /**
  * @author DangTing[dangting@boco.com.cn]

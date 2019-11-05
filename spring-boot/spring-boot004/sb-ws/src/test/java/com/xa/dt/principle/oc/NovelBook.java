@@ -1,13 +1,13 @@
-package com.xa.dt.mode.principle.oc;
+package com.xa.dt.principle.oc;
 
 /**
  * @author DangTing[dangting@boco.com.cn]
- * @date 2019-11-04 09:16
+ * @date 2019-11-04 09:15
  * @version: 1.0
  * @description: TODO
  */
 
-class ComputerBook implements IComputerBook {
+class NovelBook implements IBook {
 
     private String name;
 
@@ -15,13 +15,10 @@ class ComputerBook implements IComputerBook {
 
     private String author;
 
-    private String scope;
-
-    public ComputerBook(String name, int price, String author, String scope) {
+    public NovelBook(String name, int price, String author) {
         this.name = name;
         this.price = price;
         this.author = author;
-        this.scope = scope;
     }
 
     @Override
@@ -32,11 +29,6 @@ class ComputerBook implements IComputerBook {
     @Override
     public int getPrice() {
         return price;
-    }
-
-    @Override
-    public String getScope() {
-        return scope;
     }
 
     @Override

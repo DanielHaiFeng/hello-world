@@ -1,4 +1,4 @@
-package com.xa.dt.mode.principle.lod;
+package com.xa.dt.principle.lod;
 
 import java.util.ArrayList;
 import java.util.List;

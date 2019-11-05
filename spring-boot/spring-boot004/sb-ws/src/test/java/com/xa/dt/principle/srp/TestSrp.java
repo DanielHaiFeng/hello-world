@@ -1,4 +1,4 @@
-package com.xa.dt.mode.principle.srp;
+package com.xa.dt.principle.srp;
 
 /**
  * @author DangTing[dangting@boco.com.cn]

@@ -1,4 +1,4 @@
-package com.xa.dt.mode.principle.lsp;
+package com.xa.dt.principle.lsp;
 
 /**
  * @author DangTing[dangting@boco.com.cn]
