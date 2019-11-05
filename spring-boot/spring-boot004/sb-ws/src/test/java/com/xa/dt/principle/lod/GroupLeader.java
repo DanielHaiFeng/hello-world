@@ -1,4 +1,4 @@
-package com.xa.dt.mode.principle.lod;
+package com.xa.dt.principle.lod;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

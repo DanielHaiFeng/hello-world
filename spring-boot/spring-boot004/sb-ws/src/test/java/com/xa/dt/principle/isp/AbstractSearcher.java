@@ -1,4 +1,4 @@
-package com.xa.dt.mode.principle.isp;
+package com.xa.dt.principle.isp;
 
 /**
  * @author DangTing[dangting@boco.com.cn]

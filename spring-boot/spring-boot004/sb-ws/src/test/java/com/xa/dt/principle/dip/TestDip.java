@@ -1,4 +1,4 @@
-package com.xa.dt.mode.principle.dip;
+package com.xa.dt.principle.dip;
 
 /**
  * @author DangTing[dangting@boco.com.cn]
