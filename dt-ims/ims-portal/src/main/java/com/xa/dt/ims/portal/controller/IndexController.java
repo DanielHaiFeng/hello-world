@@ -41,6 +41,8 @@ public class IndexController {
         model.addAttribute("person", person);
         model.addAttribute("people", people);
 
+        log.info("数据准备完毕，跳转至index页面");
+
         return "index";
     }
 }
