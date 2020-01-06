@@ -1,6 +1,7 @@
 package com.xa.dt.ims.portal.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,10 +12,12 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/index")
+@Slf4j
 public class IndexController {
 
     @RequestMapping(value = "/first", method = RequestMethod.GET)
     public String first(Model model) {
+        log.info("访问index页面");
         JSONObject person = new JSONObject();
         person.put("name", "张三");
         person.put("age", 22);
