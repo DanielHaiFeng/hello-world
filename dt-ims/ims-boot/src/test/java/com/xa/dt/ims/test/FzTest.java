@@ -18,6 +18,7 @@ public class FzTest {
         List<String> num2List = split(num2);
         if (num1List.size() == 0 || num2List.size() == 0) {
             log.info("计算结果[{}]", 0);
+            return;
         }
         List<String> tmpList = calcUnit(num1List, num2List);
 //        log.info("中间结果{}", tmpList);
@@ -109,7 +110,6 @@ public class FzTest {
                 for (int k = 0; k < ztmp; k++) {
                     sb.append("0");
                 }
-                log.info(sb.toString());
                 result.add(sb.toString());
             }
         }
