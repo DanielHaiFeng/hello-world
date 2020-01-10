@@ -62,17 +62,6 @@ public class FzTest {
         return re.toString();
     }
 
-    private int dg(int[] a1, int[] a2, int djwjydy9) {
-        int it = a1[djwjydy9] + a2[djwjydy9] + 1;
-        if (it > 9) {
-            a1[djwjydy9] = it - 10;
-            return dg(a1, a2, djwjydy9 - 1);
-        } else {
-            a1[djwjydy9] = it;
-            return djwjydy9 - 1;
-        }
-    }
-
     private List<String> split(String num) {
         List<String> list = new ArrayList<String>();
         int size = num.length();
