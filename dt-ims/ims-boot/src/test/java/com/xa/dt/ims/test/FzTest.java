@@ -21,7 +21,6 @@ public class FzTest {
             return;
         }
         List<String> tmpList = calcUnit(num1List, num2List);
-//        log.info("中间结果{}", tmpList);
         calc(tmpList);
         String result = tmpList.get(0);
         log.info("计算结果[{}]", result);
@@ -39,21 +38,14 @@ public class FzTest {
         for (int i = 0; i < num2.length(); i++) {
             a2[i] = Integer.valueOf(String.valueOf(num2.charAt(i)));
         }
-        for (int i = a1.length - 1; i > 0; ) {
-            int it = a1[i] + a2[i];
-            if (it > 9) {
-                int tmp = it - 10;
-                a1[i] = tmp;
-                if (a1[i - 1] + a2[i - i] + 1 > 9) {
-                    i = dg(a1, a2, i - 1);
-                } else {
-                    a1[i - 1] = a1[i - 1] + 1;
-                    i--;
-                }
-            } else {
-                a1[i] = it;
-                i--;
-            }
+        //各位相加
+        for (int i = 0; i < a1.length; i++) {
+            a1[i] = a1[i] + a2[i];
+        }
+        //进位
+        for (int i = a1.length - 1; i > 0; i--) {
+            a1[i - 1] += a1[i] / 10;
+            a1[i] = a1[i] % 10;
         }
         StringBuilder re = new StringBuilder();
         boolean hasInt = false;
@@ -68,17 +60,6 @@ public class FzTest {
             }
         }
         return re.toString();
-    }
-
-    private int dg(int[] a1, int[] a2, int djwjydy9) {
-        int it = a1[djwjydy9] + a2[djwjydy9] + 1;
-        if (it > 9) {
-            a1[djwjydy9] = it - 10;
-            return dg(a1, a2, djwjydy9 - 1);
-        } else {
-            a1[djwjydy9] = it;
-            return djwjydy9 - 1;
-        }
     }
 
     private List<String> split(String num) {
