@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @date 2019-11-04 09:29
  * @version: 1.0
  * @description: 体育委员

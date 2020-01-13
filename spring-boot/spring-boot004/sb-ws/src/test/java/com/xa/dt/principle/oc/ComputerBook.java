@@ -1,7 +1,7 @@
 package com.xa.dt.principle.oc;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @date 2019-11-04 09:16
  * @version: 1.0
  * @description: TODO

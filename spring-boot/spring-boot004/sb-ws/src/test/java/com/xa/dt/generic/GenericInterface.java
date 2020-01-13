@@ -1,7 +1,7 @@
 package com.xa.dt.generic;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @classname GenericInterface
  * @date 2019-04-16 15:04
  * @version: 1.0

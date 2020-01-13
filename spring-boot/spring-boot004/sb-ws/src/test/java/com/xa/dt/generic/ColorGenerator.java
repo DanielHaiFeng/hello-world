@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @classname ColorGenerator
  * @date 2019-04-16 15:09
  * @version: 1.0

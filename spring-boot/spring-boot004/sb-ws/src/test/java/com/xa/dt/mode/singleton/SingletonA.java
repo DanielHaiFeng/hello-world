@@ -1,7 +1,7 @@
 package com.xa.dt.mode.singleton;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @date 2019-11-08 14:10
  * @version: 1.0
  * @description: 懒汉模式 线程不安全，延迟初始化，严格意义上不是单例模式

@@ -7,7 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @date 2019-11-07 16:37
  * @version: 1.0
  * @description: 对外提供的假期旅游对象，用于制定计划的生成器使用

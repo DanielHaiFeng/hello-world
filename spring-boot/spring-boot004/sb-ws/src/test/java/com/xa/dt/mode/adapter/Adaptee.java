@@ -1,7 +1,7 @@
 package com.xa.dt.mode.adapter;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @date 2019-11-08 14:59
  * @version: 1.0
  * @description: 源（Adaptee）：需要被适配的对象或类型，相当于插头

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @classname ZooJavaApi
  * @date 2019-04-30 10:52
  * @version: 1.0

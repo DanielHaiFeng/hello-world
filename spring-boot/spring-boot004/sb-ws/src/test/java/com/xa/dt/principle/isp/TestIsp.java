@@ -1,7 +1,7 @@
 package com.xa.dt.principle.isp;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @date 2019-11-04 09:39
  * @version: 1.0
  * @description: 接口隔离原则，客户端不应该依赖它不需要的接口；一个类对另一个类的依赖应该建立在最小的接口上

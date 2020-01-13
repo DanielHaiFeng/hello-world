@@ -1,7 +1,7 @@
 package com.xa.dt.mode.state;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @date 2019-11-05 17:36
  * @version: 1.0
  * @description: 抽象投票状态类

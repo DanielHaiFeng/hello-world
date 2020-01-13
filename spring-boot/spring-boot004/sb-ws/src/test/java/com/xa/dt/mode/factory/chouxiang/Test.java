@@ -1,7 +1,7 @@
 package com.xa.dt.mode.factory.chouxiang;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @date 2019-11-18 16:10
  * @version: 1.0
  * @description: 抽象工厂模式
