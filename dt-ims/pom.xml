@@ -71,17 +71,17 @@
             <dependency>
                 <groupId>com.xa.dt</groupId>
                 <artifactId>ims-rest</artifactId>
-                <version>0.0.1</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.xa.dt</groupId>
                 <artifactId>ims-portal</artifactId>
-                <version>0.0.1</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.xa.dt</groupId>
                 <artifactId>ims-db</artifactId>
-                <version>0.0.1</version>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

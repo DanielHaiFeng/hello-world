@@ -1,6 +1,7 @@
 package com.xa.dt.ims.interceptor;
 
 import com.xa.dt.ims.annotation.LoginRequired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -8,11 +9,15 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@Slf4j
 public class SourceAccessInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println("进入拦截器了");
+        log.info("进入拦截器");
+        if (!(handler instanceof HandlerMethod)) {
+            return true;
+        }
         // 反射获取方法上的LoginRequred注解
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         LoginRequired loginRequired = handlerMethod.getMethod().getAnnotation(LoginRequired.class);
