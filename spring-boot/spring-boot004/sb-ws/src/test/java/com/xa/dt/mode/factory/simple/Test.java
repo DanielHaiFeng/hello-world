@@ -1,7 +1,7 @@
 package com.xa.dt.mode.factory.simple;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @date 2019-11-18 15:53
  * @version: 1.0
  * @description: 简单工厂模式，一个抽象产品类，可以派生出多个具体产品类。一个具体工厂类，

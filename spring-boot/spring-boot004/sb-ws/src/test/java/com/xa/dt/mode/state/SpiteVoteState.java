@@ -1,7 +1,7 @@
 package com.xa.dt.mode.state;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @date 2019-11-05 17:39
  * @version: 1.0
  * @description: 具体状态类——恶意刷票

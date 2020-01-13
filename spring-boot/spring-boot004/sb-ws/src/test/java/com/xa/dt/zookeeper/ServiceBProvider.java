@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.I0Itec.zkclient.ZkClient;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @classname ServiceBProvider
  * @date 2019-04-30 14:06
  * @version: 1.0

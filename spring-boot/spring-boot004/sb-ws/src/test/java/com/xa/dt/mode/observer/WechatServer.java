@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @date 2019-10-24 11:54
  * @version: 1.0
  * @description: 被观察者，也就是微信公众号服务,实现了Observerable接口，对Observerable接口的三个方法进行了具体实现

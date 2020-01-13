@@ -1,7 +1,7 @@
 package com.xa.dt.mode.strategy;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @date 2019-11-05 15:00
  * @version: 1.0
  * @description: TODO

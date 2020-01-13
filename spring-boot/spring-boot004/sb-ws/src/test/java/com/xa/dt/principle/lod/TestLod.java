@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @date 2019-11-04 09:31
  * @version: 1.0
  * @description: 迪米特法则，也称为最少知识原则，一个对象应该对其他对象有最少的了解

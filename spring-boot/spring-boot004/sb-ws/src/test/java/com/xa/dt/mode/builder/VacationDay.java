@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @date 2019-11-07 16:36
  * @version: 1.0
  * @description: 旅游安排的对象，定义旅游日期，酒店，门票以及活动等属性和基础方法

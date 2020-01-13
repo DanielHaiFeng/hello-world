@@ -1,7 +1,7 @@
 package com.xa.dt.principle.dip;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @date 2019-11-04 10:20
  * @version: 1.0
  * @description: 依赖倒转原则

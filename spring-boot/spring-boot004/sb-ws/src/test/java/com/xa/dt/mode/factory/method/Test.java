@@ -1,7 +1,7 @@
 package com.xa.dt.mode.factory.method;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @date 2019-11-18 16:01
  * @version: 1.0
  * @description: 工厂方法模式，

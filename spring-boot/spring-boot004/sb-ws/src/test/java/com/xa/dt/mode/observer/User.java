@@ -1,7 +1,7 @@
 package com.xa.dt.mode.observer;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @date 2019-10-24 11:59
  * @version: 1.0
  * @description: 观察者,实现了update方法

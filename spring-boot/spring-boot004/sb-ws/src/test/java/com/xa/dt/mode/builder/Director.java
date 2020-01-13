@@ -1,7 +1,7 @@
 package com.xa.dt.mode.builder;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @date 2019-11-07 16:41
  * @version: 1.0
  * @description: 生成器模式，引导者对象

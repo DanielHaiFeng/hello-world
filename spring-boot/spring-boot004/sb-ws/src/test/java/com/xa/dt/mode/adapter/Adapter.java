@@ -1,7 +1,7 @@
 package com.xa.dt.mode.adapter;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @date 2019-11-08 15:00
  * @version: 1.0
  * @description: 适配器（Adapter）：连接目标和源的中间对象，相当于插头转换器

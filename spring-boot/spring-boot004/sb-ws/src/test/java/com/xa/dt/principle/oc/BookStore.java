@@ -8,7 +8,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @date 2019-11-04 09:16
  * @version: 1.0
  * @description: 开闭原则，对扩展开放，对修改关闭

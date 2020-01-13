@@ -1,7 +1,7 @@
 package com.xa.dt.mode.builder;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @date 2019-11-07 16:39
  * @version: 1.0
  * @description: 生成器模式，定义3天旅游的生成器对象

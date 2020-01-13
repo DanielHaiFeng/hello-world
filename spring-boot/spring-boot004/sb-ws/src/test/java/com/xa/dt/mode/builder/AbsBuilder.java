@@ -1,7 +1,7 @@
 package com.xa.dt.mode.builder;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @date 2019-11-07 16:38
  * @version: 1.0
  * @description: 生成器模式，定义抽象生成器，定义基本的抽象方法

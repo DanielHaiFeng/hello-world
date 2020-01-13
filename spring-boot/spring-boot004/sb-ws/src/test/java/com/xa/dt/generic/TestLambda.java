@@ -1,24 +1,27 @@
 package com.xa.dt.generic;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @classname TestLambda
  * @date 2019-08-16 16:47
  * @version: 1.0
  * @description: TODO
  */
+@Slf4j
 public class TestLambda {
 
     @Test
     public void testLambdaThread() {
         new Thread(() -> {
-            System.out.println("In Java8, Lambda expression rocks !!");
+            log.info("In Java8, Lambda expression rocks !!");
         }).start();
     }
 
@@ -68,6 +71,8 @@ public class TestLambda {
     @Test
     public void testMapReduceLambda() {
         List<Integer> costBeforeTax = Arrays.asList(100, 200, 300, 400, 500);
+        Optional<Double> reduce = costBeforeTax.stream().map((cost) -> cost * 0.5).reduce(Double::max);
+        System.out.println(reduce.get());
         costBeforeTax.stream().map((cost) -> cost + 0.12 * cost).forEach(System.out::println);
     }
 }

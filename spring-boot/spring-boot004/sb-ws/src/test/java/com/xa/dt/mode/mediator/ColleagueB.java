@@ -1,7 +1,7 @@
 package com.xa.dt.mode.mediator;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @date 2019-11-07 14:04
  * @version: 1.0
  * @description: 定义具体ColleagueB

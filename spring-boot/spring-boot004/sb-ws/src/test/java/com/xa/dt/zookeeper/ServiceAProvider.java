@@ -5,7 +5,7 @@ import org.I0Itec.zkclient.ZkClient;
 import org.apache.zookeeper.data.Stat;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @classname ServiceAProvider
  * @date 2019-04-30 14:03
  * @version: 1.0

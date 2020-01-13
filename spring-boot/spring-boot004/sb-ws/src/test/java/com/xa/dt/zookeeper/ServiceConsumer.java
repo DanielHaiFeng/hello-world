@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @classname ServiceConsumer
  * @date 2019-04-30 14:07
  * @version: 1.0

@@ -1,7 +1,7 @@
 package com.xa.dt.mode.builder;
 
 /**
- * @author DangTing[dangting@boco.com.cn]
+ * @author DangTing
  * @date 2019-11-07 17:05
  * @version: 1.0
  * @description: 生成器模式，简化复杂对象的生成，旅游计划项目，对于用户来说只关心旅游日期和开始时间，可以自动展示出所有计划即可
