@@ -24,7 +24,7 @@ public class ServiceConsumer {
     private ZkClient zk;
 
     public void init() {
-        String zkServerList = "120.131.2.119:30011";
+        String zkServerList = "192.168.5.27:2181";
         zk = new ZkClient(zkServerList);
         if (zk.exists(servicePath)) {
             serverList = zk.getChildren(servicePath);
