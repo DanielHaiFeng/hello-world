@@ -9,7 +9,6 @@ import org.apache.zookeeper.data.Stat;
  * @classname ServiceAProvider
  * @date 2019-04-30 14:03
  * @version: 1.0
- * @description: TODO
  */
 public class ServiceAProvider {
 
@@ -17,7 +16,7 @@ public class ServiceAProvider {
 
     public void init() {
         //zookeeper服务器地址
-        String severList = "120.131.2.119:30011";
+        String severList = "192.168.5.27:2181";
         String rootPath = "/servers";
         ZkClient zk = new ZkClient(severList, 5000, 5000);
         if (!zk.exists(rootPath)) {

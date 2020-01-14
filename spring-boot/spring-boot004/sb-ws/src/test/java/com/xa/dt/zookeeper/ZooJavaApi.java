@@ -29,7 +29,7 @@ public class ZooJavaApi {
 
     public static final Logger logger = LoggerFactory.getLogger(ZooJavaApi.class);
 
-    public static final String HOST = "120.131.2.119:30011";
+    public static final String HOST = "192.168.5.27:2181";
 
     private ZooKeeper zookeeper;
 

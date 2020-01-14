@@ -16,7 +16,7 @@ public class ServiceBProvider {
 
     public void init() {
         //zookeeper服务器地址
-        String severList = "120.131.2.119:30011";
+        String severList = "192.168.5.27:2181";
         String rootPath = "/servers";
         ZkClient zk = new ZkClient(severList, 5000, 5000);
         if (!zk.exists(rootPath)) {
