@@ -1,0 +1,20 @@
+启动nacos:
+D:\Program Files\nacos\bin\startup.cmd
+控制台地址:
+http://localhost:8848/nacos/index.html
+账户:
+nacos/nacos
+
+Data ID:
+nacos-config-dangt
+Group:
+DEFAULT_GROUP
+
+配置格式:
+properties
+
+配置内容:
+nacos.test.propertie=4561112333
+ceshi.test.properties=dangt1238899
+server.servlet.context-path=/nacos-demo
+server.port=9090
